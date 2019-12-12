@@ -12,6 +12,4 @@ module.exports = {
     PAGE_ACCESS_TOKEN,
     SEVER_URL,
     VALIDATION_TOKEN,
-    SERVER_NAME,
-    PORT
 }

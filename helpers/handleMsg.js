@@ -1,7 +1,6 @@
 const cfg = require('./config');
 const timeout = 3000;
 const request = require('request');
-const models = require('../models/msg')
 // connect to atlas mongodb
 
 module.exports.handleMessage = (sender_psid , receivedMsg)=>{
