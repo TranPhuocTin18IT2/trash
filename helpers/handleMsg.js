@@ -7,9 +7,7 @@ module.exports.handleMessage = (sender_psid , receivedMsg)=>{
     let response ;
     if(receivedMsg.text){
         console.log(receivedMsg.text);
-        // mesageWitAI(receivedMsg.text,sender_psid);
             response = {"text": `You sent the message: "${receivedMsg.text}". Now send me an image!`}
-
     }else if(receivedMsg.attachments){
         let attachment_url = receivedMsg.attachments[0].payload.url;
 /*message : */
