@@ -3,22 +3,14 @@ const timeout = 3000;
 const request = require('request');
 const models = require('../models/msg')
 // connect to atlas mongodb
-const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://dbSICT:TCQ18it2it@messagese-stkxp.mongodb.net/chatbot?retryWrites=true&w=majority";
-const collection = client.db('chatbot').collection('messages')
 
-const client = new MongoClient(uri, { useUnifiedTopology: true, useNewUrlParser: true });
 module.exports.handleMessage = (sender_psid , receivedMsg)=>{
     let response ;
     if(receivedMsg.text){
         console.log(receivedMsg.text);
         // mesageWitAI(receivedMsg.text,sender_psid);
             response = {"text": `You sent the message: "${receivedMsg.text}". Now send me an image!`}
-            if(collection.findOne({text:receivedMsg.text})){
-                console.log('This record already exists!')
-            }else{
-                collection.insertOne(models(receivedMsg.text,type)) // insert data
-            }
+
     }else if(receivedMsg.attachments){
         let attachment_url = receivedMsg.attachments[0].payload.url;
 /*message : */
