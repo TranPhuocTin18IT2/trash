@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Chatbot dự báo thởi tiết",
   "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
   "repository": "https://github.com/TranPhuocTin18IT2/chatbot.git",
   "author": "TranPhuocTin18IT2 <tptin.18it2@sict.udn.vn>",
   "license": "MIT",
