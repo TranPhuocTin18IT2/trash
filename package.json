@@ -1,15 +1,22 @@
 {
   "name": "chatbot",
   "version": "1.0.0",
-  "description": "Chatbot dự báo thởi tiết",
+  "description": "Chatbot dự báo thời tiết",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "repository": "https://github.com/TranPhuocTin18IT2/chatbot.git",
-  "author": "TranPhuocTin18IT2 <tptin.18it2@sict.udn.vn>",
-  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TranPhuocTin18IT2/chatbot.git"
+  },
+  "author": "TranPhuocTin18it2",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TranPhuocTin18IT2/chatbot/issues"
+  },
+  "homepage": "https://github.com/TranPhuocTin18IT2/chatbot#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
