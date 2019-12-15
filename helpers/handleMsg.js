@@ -3,7 +3,7 @@ const timeout = 3000;
 const request = require('request');
 // connect to atlas mongodb
 
-module.exports.handleMessage = (sender_psid , receivedMsg)=>{
+module.exports.handleMessage = (sender_psid, receivedMsg)=>{
     let response ;
     if(receivedMsg.text){
         console.log(receivedMsg.text);
