@@ -1,6 +1,4 @@
 const tf = require('@tensorflow/tfjs-node')
-const fs = require('fs')
-const path = require('path')
 // thu vien tach tu
 const vntk = require("vntk")
 const train = require('./training')
@@ -81,7 +79,7 @@ async function loadModel() {
     console.log(element.name, element.shape)
   })  
   let predict = loadmodel.predict(tf.tensor2d(arrayMatrixWeights)).argMax(1).dataSync(0)
-  resultPredict = await train.types[predict]
-  // console.log(resultPredict)
+  resultPredict = train.types[predict]
+  console.log(resultPredict)
 }
 

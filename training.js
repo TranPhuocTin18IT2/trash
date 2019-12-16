@@ -6,10 +6,10 @@ const vntk = require('vntk')
 const tokenizer = vntk.wordTokenizer()
 const tf = require('@tensorflow/tfjs-node')
 // đọc file lưu stopword
-var ReadStopWordFile = fs.readFileSync(path.join(__dirname, '../ml/seeds/stopwords.txt'), 'utf8')
+var ReadStopWordFile = fs.readFileSync(path.join(__dirname, './stopwords.txt'), 'utf8')
 var arayStopWords = ReadStopWordFile.split()
 // doc file du lieu train
-const data = fs.readFileSync('../ml/seeds/dataInput.json','utf8')
+const data = fs.readFileSync('./dataInput.json','utf8')
 // parser data json
 const words = JSON.parse(data)
 // băt đầu tạo mảng từ điển
