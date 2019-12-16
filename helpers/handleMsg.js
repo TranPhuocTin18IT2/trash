@@ -126,6 +126,7 @@ const callSendAPI = (sender_psid,response,cb=null)=>{
 
 const tfjs_AI = async (fbUserMsg,senderID) =>{
     let senderName = ""
+    let predictTensor = 0
     let data = predict.matrixWeights(fbUserMsg) 
     let loadmodel = await tf.loadLayersModel("file://model/model.json")
     await loadmodel.weights.forEach(element => {
@@ -134,12 +135,12 @@ const tfjs_AI = async (fbUserMsg,senderID) =>{
     await getSenderInformation(senderID,(senderInfo)=>{
         senderName = senderInfo.first_name
     })
-    let pridictTensor = loadmodel
+    predictTensor = loadmodel
       .predict(tf.tensor2d(data))
       .argMax(1)
       .dataSync(0)
-    console.log(pridictTensor)
-    await handleMsg(train.types[pridictTensor],senderName,senderID)
+    console.log(train.types[predictTensor])
+    await handleMsg(train.types[predictTensor],senderName,senderID)
 }
 const getSenderInformation = (senderID,cb) =>{
     return request(
