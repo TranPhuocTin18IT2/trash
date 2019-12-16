@@ -134,7 +134,7 @@ const tfjs_AI = async (fbUserMsg,senderID) =>{
     await getSenderInformation(senderID,(senderInfo)=>{
         senderName = senderInfo.first_name
     })
-    let pridictTensor = await loadmodel
+    let pridictTensor = loadmodel
       .predict(tf.tensor2d(data))
       .argMax(1)
       .dataSync(0);
