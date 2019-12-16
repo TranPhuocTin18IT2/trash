@@ -139,7 +139,7 @@ const tfjs_AI = async (fbUserMsg,senderID) =>{
       .argMax(1)
       .dataSync(0)
     console.log(predictions)
-    if(predictions.lenght>1) predictions.lenght = 0
+    if(predictions.lenght>1) predictions.shift()
     await handleMsg(train.types[predictions],senderName,senderID)
 }
 const getSenderInformation = (senderID,cb) =>{
