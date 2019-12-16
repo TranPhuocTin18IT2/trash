@@ -139,7 +139,7 @@ const tfjs_AI = async (fbUserMsg,senderID) =>{
       .argMax(1)
       .dataSync(0);
     console.log(train.types[pridictTensor]);
-    await handleMsg(train.types[pridictTensor],senderName);
+    await handleMsg(train.types[pridictTensor],senderName,senderID);
 }
 const getSenderInformation = (senderID,cb) =>{
     return request(
@@ -159,7 +159,7 @@ const getSenderInformation = (senderID,cb) =>{
     );
 }
 
-const handleMsg = (tfjs_data,senderName)=>{
+const handleMsg = (tfjs_data,senderName,senderID)=>{
     if(tfjs_data=='greetings'){
          let response = {
            text: `Chào ${senderName}, tôi có thể giúp gì cho bạn`
