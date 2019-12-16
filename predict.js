@@ -24,7 +24,8 @@ let cleanMsg = (msg) => {
 // chuyen vao mang
 let msgToArray = (msg) => {
   let clean = cleanMsg(msg)
-  lswords = clean.split(' ')
+  let lowerCase = clean.toLowerCase()
+  lswords = lowerCase.split(' ')
 }
 // msgToArray(text)
 // console.log(lswords)
