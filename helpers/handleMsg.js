@@ -1,7 +1,7 @@
 const cfg = require('./config');
 const timeout = 3000;
 const request = require('request');
-const predict = require('../ml/predict')
+// const predict = require('../ml/predict')
 // connect to atlas mongodb
 
 module.exports.handleMessage = (sender_psid, receivedMsg)=>{
@@ -39,10 +39,10 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
             }
           }
         }
-        callSendAPI(sender_psid, response);
+        // callSendAPI(sender_psid, response);
     }
     // Send the response message
-    // callSendAPI(sender_psid, response);
+    callSendAPI(sender_psid, response);
 };
  // Handle postbacks
 module.exports.handlePostback = (sender_psid , received_postback)=>{
