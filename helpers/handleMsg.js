@@ -1,13 +1,17 @@
 const cfg = require('./config');
 const timeout = 3000;
 const request = require('request');
+const tf = require('@tensorflow/tfjs-node')
+const train = require('../training')
+const predict = require('../predict')
 // connect to atlas mongodb
 
 module.exports.handleMessage = (sender_psid, receivedMsg)=>{
     let response ;
     if(receivedMsg.text){
         console.log(receivedMsg.text);
-            response = {"text": `You sent the message: "${receivedMsg.text}". Now send me an image!`}
+            tfjs_AI(receivedMsg.text,sender_psid)
+            // response = {"text": `You sent the message: "${receivedMsg.text}". Now send me an image!`}
         }else if(receivedMsg.attachments){
         let attachment_url = receivedMsg.attachments[0].payload.url;
 /*message : */
@@ -119,3 +123,69 @@ const callSendAPI = (sender_psid,response,cb=null)=>{
         }
     );
 };
+
+const tfjs_AI = async (fbUserMsg,senderID) =>{
+    let senderName = ""
+    await getSenderInformation(senderID,(senderInfo)=>{
+        senderName = senderInfo.first_name
+    })
+    let data = predict.matrixWeights(fbUserMsg)
+    let loadmodel = await tf.loadLayersModel("file://model/model.json");
+    await loadmodel.weights.forEach(element => {
+      console.log(element.name, element.shape);
+    });
+    let pridictTensor = loadmodel
+      .predict(tf.tensor2d(data))
+      .argMax(1)
+      .dataSync(0);
+    console.log(train.types[pridictTensor]);
+    await handleMsg(train.types[pridictTensor]);
+}
+const getSenderInformation = (senderID,cb) =>{
+    return request(
+      {
+        url: "https://graph.facebook.com/v3.2/" + senderID,
+        qs: {
+          access_token: cfg.PAGE_ACCESS_TOKEN,
+          fields: "first_name"
+        },
+        method: "GET"
+      },
+      (err, response, body) => {
+        if (!err) {
+          return cb(JSON.parse(body));
+        }
+      }
+    );
+}
+
+const handleMsg = (tfjs_data)=>{
+    if(tfjs_data=='greetings'){
+         let response = {
+           text: `Chào ${senderName}, tôi có thể giúp gì cho bạn`
+         };
+         callSendAPI(senderID, response);
+         return;
+    }
+    if(tfjs_data=='weather'){
+        let response = {
+          text: 'thời tiết hôm nay là'
+        };
+        callSendAPI(senderID, response);
+        return;
+    }
+    if (tfjs_data == "regards") {
+      let response = {
+        text: 'không có gì '
+      };
+      callSendAPI(senderID, response);
+      return;
+    }
+    if (tfjs_data == "recommendations") {
+      let response = {
+        text: `Trời hôm nay đẹp lắm ${senderName}`
+      };
+      callSendAPI(senderID, response);
+      return;
+    }
+}
