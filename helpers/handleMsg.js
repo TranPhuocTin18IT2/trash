@@ -1,14 +1,16 @@
 const cfg = require('./config');
 const timeout = 3000;
 const request = require('request');
+const predict = require('../ml/predict')
 // connect to atlas mongodb
 
 module.exports.handleMessage = (sender_psid, receivedMsg)=>{
     let response ;
     if(receivedMsg.text){
         console.log(receivedMsg.text);
-            response = {"text": `You sent the message: "${receivedMsg.text}". Now send me an image!`}
-    }else if(receivedMsg.attachments){
+            // response = {"text": `You sent the message: "${receivedMsg.text}". Now send me an image!`}
+            sictAI(receivedMsg.text,sender_psid)
+        }else if(receivedMsg.attachments){
         let attachment_url = receivedMsg.attachments[0].payload.url;
 /*message : */
      response = {
@@ -118,3 +120,36 @@ const callSendAPI = (sender_psid,response,cb=null)=>{
         }
     );
 };
+
+const tensorAI = async (msg, senderID) =>{
+    let senderName = ""
+    let rs = predict.prediction(msg)
+    await getSenderInformation(senderID,(senderInfor)=>{
+        senderName = senderInfor.first_name
+    })
+    await getTensorAIData(rs)
+
+}
+
+const getSenderInformation = (senderID, cb) => {
+    return request({
+        url: "https://graph.facebook.com/v3.2/" + senderID,
+        qs: {
+            access_token: config.PAGE_ACCESS_TOKEN,
+            fields: "first_name"
+        },
+        method: "GET"
+    }, (err, response, body) => {
+        if (!err) {
+            return cb(JSON.parse(body))
+        }
+    })
+}
+
+const getTensorAIData = (predict) => {
+    if(predict=='greetings'){
+        let response = { "text": `Chào bạn ${senderName}, tôi có thể giúp gì cho bạn` };
+        callSendAPI(senderID, response);
+        return;
+    }
+}
