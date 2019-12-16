@@ -9,7 +9,7 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
     if(receivedMsg.text){
         console.log(receivedMsg.text);
             // response = {"text": `You sent the message: "${receivedMsg.text}". Now send me an image!`}
-            sictAI(receivedMsg.text,sender_psid)
+            tensorAI(receivedMsg.text,sender_psid)
         }else if(receivedMsg.attachments){
         let attachment_url = receivedMsg.attachments[0].payload.url;
 /*message : */
@@ -127,8 +127,7 @@ const tensorAI = async (msg, senderID) =>{
     await getSenderInformation(senderID,(senderInfor)=>{
         senderName = senderInfor.first_name
     })
-    await getTensorAIData(rs)
-
+    await getTensorAIData(rs,senderID)
 }
 
 const getSenderInformation = (senderID, cb) => {
@@ -146,9 +145,14 @@ const getSenderInformation = (senderID, cb) => {
     })
 }
 
-const getTensorAIData = (predict) => {
+const getTensorAIData = (predict,senderID) => {
     if(predict=='greetings'){
         let response = { "text": `Chào bạn ${senderName}, tôi có thể giúp gì cho bạn` };
+        callSendAPI(senderID, response);
+        return;
+    }
+    if(predict=='recommendations'){
+        let response = { "text": `${senderName} ơi, bạn nên mặc áo mưa vì trời sẽ mưa to đó` };
         callSendAPI(senderID, response);
         return;
     }
