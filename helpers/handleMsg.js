@@ -140,7 +140,7 @@ const tfjs_AI = async (fbUserMsg,senderID) =>{
       .predict(tf.tensor2d(data))
       .argMax(1)
       .dataSync(0)
-    console.log(predictions.Inter32Array[0])
+    console.log(predictions.valueOf(predictions.length-1))
     await handleMsg(train.types[predictions],senderName,senderID)
 }
 const getSenderInformation = (senderID,cb) =>{
