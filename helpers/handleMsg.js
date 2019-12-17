@@ -129,6 +129,7 @@ const tfjs_AI = async (fbUserMsg,senderID) =>{
     let senderName = ""
     let data = predict.matrixWeights(fbUserMsg) 
     let loadmodel = await tf.loadLayersModel("file://model/model.json")
+    let index 
     await loadmodel.weights.forEach(element => {
       console.log(element.name, element.shape)
     })
@@ -141,9 +142,10 @@ const tfjs_AI = async (fbUserMsg,senderID) =>{
       .dataSync(0)
     // console.log(typeof predictions)
     for(let i in predictions){
-      console.log(predictions[i])
+      index = predictions[i]
+      // console.log(predictions[i])
     }
-    await handleMsg(train.types[predictions],senderName,senderID)
+    await handleMsg(train.types[index],senderName,senderID)
 }
 const getSenderInformation = (senderID,cb) =>{
     return request(
