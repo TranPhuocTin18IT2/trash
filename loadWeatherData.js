@@ -110,8 +110,8 @@ let rq = () =>{
       }
     });
     console.log(now + forecast_j);
+    return now
   });
-  return now
 }
 
 module.exports.rq = rq
