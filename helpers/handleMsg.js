@@ -4,7 +4,14 @@ const request = require('request')
 const tf = require('@tensorflow/tfjs-node')
 const train = require('../training')
 const predict = require('../predict')
-const forecast = require('../loadWeatherData')
+const request = require("request");
+const parseString = require("xml2js").parseString;
+const util = require("util");
+const inspect = require("eyes").inspector({ maxLength: false });
+let apikey = "5e93b605b28ee0aae9b2d53f134d439b";
+let cities = "danang";
+let countries = "vn";
+let url = `https://api.openweathermap.org/data/2.5/forecast?q=${cities},${countries}&mode=xml&appid=${apikey}`;
 //
 let date = new Date();
 var hour = Number(date.getHours());
@@ -15,7 +22,7 @@ var temperatureMax;
 var humidity; //độ ẩm
 var now;
 var forecast_j;
-  request(forecast.url, (err, response, data) => {
+request(url, (err, response, data) => {
     parseString(data, { trim: true }, (err, result) => {
       let root = result.weatherdata;
       let forecast = Array.from(root.forecast[0].time).map(p => ({
