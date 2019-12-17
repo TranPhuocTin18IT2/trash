@@ -15,7 +15,6 @@ var temperatureMax;
 var humidity; //độ ẩm
 var now;
 var forecast_j;
-let rq = () => {
   request(forecast.url, (err, response, data) => {
     parseString(data, { trim: true }, (err, result) => {
       let root = result.weatherdata;
@@ -110,7 +109,6 @@ let rq = () => {
     });
     console.log(now + forecast_j);
   });
-}
 
 //
 module.exports.handleMessage = (sender_psid, receivedMsg)=>{
@@ -281,7 +279,7 @@ const handleMsg = (tfjs_data,senderName,senderID)=>{
     }
     if(tfjs_data=='weather'){
         let response = {
-          text: now
+          text: now+"\n"+forecast_j
         }
         callSendAPI(senderID, response)
         return
