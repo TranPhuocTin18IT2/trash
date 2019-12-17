@@ -4,6 +4,7 @@ const request = require('request')
 const tf = require('@tensorflow/tfjs-node')
 const train = require('../training')
 const predict = require('../predict')
+const forecast = require('../loadWeatherData')
 // connect to atlas mongodb
 
 module.exports.handleMessage = (sender_psid, receivedMsg)=>{
@@ -139,7 +140,6 @@ const tfjs_AI = async (fbUserMsg,senderID) =>{
       .argMax(1)
       .dataSync(0)
     console.log(predictions)
-    if(predictions.lenght>1) predictions.shift()
     await handleMsg(train.types[predictions],senderName,senderID)
 }
 const getSenderInformation = (senderID,cb) =>{
@@ -170,14 +170,14 @@ const handleMsg = (tfjs_data,senderName,senderID)=>{
     }
     if(tfjs_data=='weather'){
         let response = {
-          text: 'thời tiết hôm nay là'
+          text: forecast.now
         }
         callSendAPI(senderID, response)
         return
     }
     if (tfjs_data == "regards") {
       let response = {
-        text: 'không có gì '
+        text: 'Tôi rất vui vì có thể giúp bạn.'
       }
       callSendAPI(senderID, response)
       return
