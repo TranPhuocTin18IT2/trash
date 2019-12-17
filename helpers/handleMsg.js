@@ -4,7 +4,7 @@ const request = require('request')
 const tf = require('@tensorflow/tfjs-node')
 const train = require('../training')
 const predict = require('../predict')
-const request = require("request");
+
 const parseString = require("xml2js").parseString;
 const util = require("util");
 const inspect = require("eyes").inspector({ maxLength: false });
