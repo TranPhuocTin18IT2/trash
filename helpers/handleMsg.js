@@ -175,7 +175,7 @@ const handleMsg = (tfjs_data,senderName,senderID)=>{
     }
     if(tfjs_data=='weather'){
         let response = {
-          text: forecast.now
+          text: forecast.rq
         }
         callSendAPI(senderID, response)
         return
