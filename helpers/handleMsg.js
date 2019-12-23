@@ -4,6 +4,9 @@ const request = require('request')
 const mongoose = require('mongoose')
 const assert = require('assert')
 const model = require('../models/messages')
+const uri =
+  "mongodb://dbSICT:sictK18@anonymous-shard-00-01-app1j.mongodb.net:27017/weather-chat-bot?ssl=true&replicaSet=anonymous-shard-0&authSource=admin";
+
 const tf = require('@tensorflow/tfjs-node')
 const train = require('../predict')
 const predict = require('../training')
