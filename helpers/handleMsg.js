@@ -131,10 +131,8 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
               // mongoose connection 
               mongoose.connect(uri,{useUnifiedTopology: true, useNewUrlParser: true},(err,db)=>{
                 assert.equal(null,err)
-                const result = db.collection('mailbox')
-                      .find({text: `${receivedMsg.text}`}).select("text").lean() 
+                const result = await db.collection('mailbox').find({text: `${receivedMsg.text}`}).select("text").lean() 
                       if(result){
-                       
                         tfjs_AI(receivedMsg.text,sender_psid)
                       }
                       else{
