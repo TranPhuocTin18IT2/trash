@@ -134,10 +134,11 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
                 const result = db.collection('mailbox')
                       .find({text: `${receivedMsg.text}`}).select("text").lean() 
                       if(result){
-                        console.log('The text is already exists!')
+                       
+                        tfjs_AI(receivedMsg.text,sender_psid)
                       }
                       else{
-                          tfjs_AI(receivedMsg.text,sender_psid)
+                           console.log('The text is not already exists!')
                       }
                   db.close();
               })
