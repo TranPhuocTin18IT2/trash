@@ -193,7 +193,7 @@ let vectors = new Array()
     typeVals.map((item) => {
         typesInput.push(types.indexOf(item))
     })
-    console.log('class: ', typesInput, '\n', types)
+    // console.log('class: ', typesInput, '\n', types)
 module.exports = {
     dictionary,
     lsWordOfData,
@@ -211,7 +211,7 @@ let wordInputTensor = tf.tensor2d(vectors)
 let typeTensor = tf.tensor1d(typesInput, 'int32')
 let typeinputTensor = tf.oneHot(typeTensor,types.length)
 
-typeinputTensor.print()
+// typeinputTensor.print()
 
 //tạo model
 let model = tf.sequential()
