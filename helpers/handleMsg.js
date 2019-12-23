@@ -8,8 +8,8 @@ const uri =
   "mongodb://dbSICT:sictK18@anonymous-shard-00-01-app1j.mongodb.net:27017/weather-chat-bot?ssl=true&replicaSet=anonymous-shard-0&authSource=admin";
 
 const tf = require('@tensorflow/tfjs-node')
-const train = require('../predict')
-const predict = require('../training')
+const train = require("../training");
+const predict = require('../predict')
 
 const parseString = require("xml2js").parseString;
 const util = require("util");
