@@ -1,6 +1,7 @@
 const test = require('./predict')
 const train = require('./training')
 const tf = require('@tensorflow/tfjs-node')
+require('../database/connection')
 let text = ' xin cái đề xuất'
 let data = test.matrixWeights(text)
 // console.log('matrix',test.matrixWeights(text))
@@ -14,3 +15,4 @@ async function prediction() {
     return train.types[pridictTensor]
 }
 prediction()
+

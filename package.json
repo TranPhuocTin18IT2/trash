@@ -18,20 +18,20 @@
   },
   "homepage": "https://github.com/TranPhuocTin18IT2/chatbot#readme",
   "dependencies": {
+    "@tensorflow/tfjs-node": "^1.4.0",
+    "assert": "^2.0.0",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "eyes": "^0.1.8",
     "lodash": "^4.17.15",
-    "mongodb": "^3.4.0",
     "mongoose": "^5.8.0",
     "morgan": "^1.9.1",
     "node-rest-client": "^3.1.0",
     "node-wit": "^5.0.0",
     "request": "^2.88.0",
-    "@tensorflow/tfjs-node": "^1.4.0",
-    "vntk": "^1.4.3",
-    "eyes": "^0.1.8",
     "util": "^0.12.1",
+    "vntk": "^1.4.3",
     "xml2js": "^0.4.22"
   }
 }

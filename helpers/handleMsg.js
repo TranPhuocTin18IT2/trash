@@ -1,9 +1,12 @@
 const cfg = require('./config')
 const timeout = 3000
 const request = require('request')
+const mongoose = require('mongoose')
+const assert = require('assert')
+const model = require('../models/messages')
 const tf = require('@tensorflow/tfjs-node')
-const train = require('../training')
-const predict = require('../predict')
+const train = require('../predict')
+const predict = require('../training')
 
 const parseString = require("xml2js").parseString;
 const util = require("util");
@@ -114,7 +117,7 @@ request(url, (err, response, data) => {
         }
       }
     });
-    console.log(now + forecast_j);
+    // console.log(now + forecast_j);
   });
 
 //
@@ -122,7 +125,20 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
     let response 
     if(receivedMsg.text){
         console.log(receivedMsg.text)
-            tfjs_AI(receivedMsg.text,sender_psid)
+              // mongoose connection 
+              mongoose.connect(uri,{useUnifiedTopology: true, useNewUrlParser: true},(err,db)=>{
+                assert.equal(null,err)
+                const result = db.collection('mailbox')
+                      .find({text: `${receivedMsg.text}`}).select("text").lean() 
+                      if(result){
+                        console.log('The text is already exists!')
+                      }
+                      else{
+                          tfjs_AI(receivedMsg.text,sender_psid)
+                      }
+                  db.close();
+              })
+            // tfjs_AI(receivedMsg.text, sender_psid)
             // response = {"text": `You sent the message: "${receivedMsg.text}". Now send me an image!`}
         }else if(receivedMsg.attachments){
         let attachment_url = receivedMsg.attachments[0].payload.url
@@ -241,6 +257,7 @@ const tfjs_AI = async (fbUserMsg,senderID) =>{
     let data = predict.matrixWeights(fbUserMsg) 
     let loadmodel = await tf.loadLayersModel("file://model/model.json")
     let index 
+
     await loadmodel.weights.forEach(element => {
       console.log(element.name, element.shape)
     })
@@ -277,12 +294,19 @@ const getSenderInformation = (senderID,cb) =>{
 }
 
 const handleMsg = (tfjs_data,senderName,senderID)=>{
-    if(tfjs_data=='greetings'){
+    if(tfjs_data=='greetings_0'){
          let response = {
            text: `Chào bạn ${senderName}, tôi có thể giúp gì cho bạn`
          }
          callSendAPI(senderID, response)
          return
+    }
+    if(tfjs_data == 'greetings_1'){
+          let response = {
+            text: 'tạm biệt'
+          }
+          callSendAPI(senderID, response)
+          return
     }
     if(tfjs_data=='weather'){
         let response = {
