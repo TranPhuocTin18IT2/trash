@@ -129,18 +129,18 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
     if(receivedMsg.text){
         console.log(receivedMsg.text)
               // mongoose connection 
-              mongoose.connect(uri,{useUnifiedTopology: true, useNewUrlParser: true},(err,db)=>{
-                assert.equal(null,err)
-                const result = db.collection('mailbox').findOne({text: `${receivedMsg.text}`})
-                      if(result){
-                        // tfjs_AI(receivedMsg.text,sender_psid)
-                          console.log('The text is already exists!')
-                      }
-                      else{
-                           console.log('The text have not already exists!')
-                      }
-                  db.close();
-              })
+              // mongoose.connect(uri,{useUnifiedTopology: true, useNewUrlParser: true},(err,db)=>{
+              //   assert.equal(null,err)
+              //   const result = db.collection('mailbox').findOne({text: `${receivedMsg.text}`})
+              //         if(result){
+              //           // tfjs_AI(receivedMsg.text,sender_psid)
+              //             console.log('The text is already exists!')
+              //         }
+              //         else{
+              //              console.log('The text have not already exists!')
+              //         }
+              //     db.close();
+              // })
             tfjs_AI(receivedMsg.text, sender_psid)
             // response = {"text": `You sent the message: "${receivedMsg.text}". Now send me an image!`}
         }else if(receivedMsg.attachments){
