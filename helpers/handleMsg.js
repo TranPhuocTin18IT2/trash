@@ -137,7 +137,7 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
                 .toArray((err, docs) => {
                   assert.equal(err, null)
                   if (!docs.length) console.log('Chua ton tai')
-                  else tfjs_AI(validMess, sender_psid)
+                  else tfjs_AI(receivedMsg.text, sender_psid)
                 })
               db.close()
             })
