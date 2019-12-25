@@ -128,8 +128,10 @@ request(url, (err, response, data) => {
 module.exports.handleMessage = (sender_psid, receivedMsg)=>{
     let response 
     if(receivedMsg.text){
-        console.log(receivedMsg.text)
-        let validMess = regexMess.vaidateMessage(receivedMsg.text).toLowerCase()
+    
+        let validMess = regexMess.vaidateMessage(receivedMsg.text)
+        let lowerCase = clean.toLowerCase()   
+         console.log(lowerCase)
             mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }, (err, db) => {
               assert.equal(null, err)
               db.collection('mailbox')
