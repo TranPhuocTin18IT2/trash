@@ -33,6 +33,7 @@ const xoa_dau = (str) => {
     return str;
 }
 module.exports.vaidateMessage = (str) => {
-    let regex = /[\Sa-z]/gi;
-    return xoa_dau(str).match(regex).join("");
+    let reqex = /[^()_+\-=\[\]{};':"\\|!@#$%^&*,.<>\/?*~]+/gi
+    // return xoa_dau(str).match(regex).join("");
+    return str.match(reqex)
 }

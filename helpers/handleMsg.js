@@ -4,6 +4,7 @@ const request = require('request')
 const mongoose = require('mongoose')
 const assert = require('assert')
 const model = require('../models/messages')
+const regexMess = require('./regexMessage')
 const uri =
   "mongodb://dbSICT:sictK18@anonymous-shard-00-01-app1j.mongodb.net:27017/weather-chat-bot?ssl=true&replicaSet=anonymous-shard-0&authSource=admin";
 
@@ -128,14 +129,15 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
     let response 
     if(receivedMsg.text){
         console.log(receivedMsg.text)
+        let validMess = regexMess.vaidateMessage(receivedMsg.text)
             mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }, (err, db) => {
               assert.equal(null, err)
               db.collection('mailbox')
-                .find({ text: `${receivedMsg.text}` }, { projection: { _id: 0, text: 1, type: 1 } })
+                .find({ text: `${validMess}` }, { projection: { _id: 0, text: 1, type: 1 } })
                 .toArray((err, docs) => {
                   assert.equal(err, null)
                   if (!docs.length) console.log('Chua ton tai')
-                  else tfjs_AI(receivedMsg.text, sender_psid)
+                  else tfjs_AI(validMess, sender_psid)
                 })
               db.close()
             })
