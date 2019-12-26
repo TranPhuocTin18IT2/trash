@@ -129,7 +129,7 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
     let response 
     if(receivedMsg.text){
     
-        let validMess = regexMess.vaidateMessage(receivedMsg.text)
+        let validMess = regexMess.vaidateMessage(receivedMsg.text).toString()
         let lowerCase = validMess.toLowerCase()   
          console.log(lowerCase)
             mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }, (err, db) => {
