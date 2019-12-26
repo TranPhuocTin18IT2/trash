@@ -129,8 +129,8 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
     let response 
     if(receivedMsg.text){
     
-        let validMess = regexMess.vaidateMessage(receivedMsg.text).toString()
-        let lowerCase = validMess.toLowerCase()   
+        let validMess = regexMess.vaidateMessage(receivedMsg.text)
+        let lowerCase = validMess.toString().toLowerCase()   
          console.log(lowerCase)
             mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }, (err, db) => {
               assert.equal(null, err)
@@ -138,12 +138,28 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
                 .find({ text: `${lowerCase}` }, { projection: { _id: 0, text: 1, type: 1 } })
                 .toArray((err, docs) => {
                   assert.equal(err, null)
-                  if (!docs.length) console.log('Chua ton tai')
-                  else tfjs_AI(receivedMsg.text, sender_psid)
-                })
-              db.close()
-            })
-            // tfjs_AI(receivedMsg.text, sender_psid)
+                  if (!docs.length) {
+                    console.log('Chua ton tai')
+                    response = {
+                      "payload": {
+                        "template_type": "button",
+                        "text": receivedMsg.text,
+                        "buttons": [
+                            {
+                              "title": "thời tiết"
+                            },
+                            {
+                              "title": "lời chào"
+                            },
+                          ]
+                        }
+                      }
+                    }
+                    else tfjs_AI(receivedMsg.text, sender_psid)
+                  })
+                db.close()
+              })
+              // tfjs_AI(receivedMsg.text, sender_psid)
             // response = {"text": `You sent the message: "${receivedMsg.text}". Now send me an image!`}
         }else if(receivedMsg.attachments){
         let attachment_url = receivedMsg.attachments[0].payload.url
