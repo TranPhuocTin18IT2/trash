@@ -139,32 +139,7 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
                   assert.equal(err, null)
                   if (!docs.length) {
                     console.log('Chua ton tai')
-                    response = {
-                      // Get the URL of the message attachment
-                      "attachment": {
-                        "type": "template",
-                        "payload": {
-                          "template_type": "generic",
-                          "elements": [{
-                            "title": "Is this the right picture?",
-                            "subtitle": "Tap a button to answer.",
-                            "image_url": receivedMsg.text,
-                            "buttons": [
-                              {
-                                "type": "postback",
-                                "title": "Yes!",
-                                "payload": "yes",
-                              },
-                              {
-                                "type": "postback",
-                                "title": "No!",
-                                "payload": "no",
-                              }
-                            ],
-                          }]
-                        }
-                      }
-                    }
+                    response = 'Tôi không hiểu bản đang nói cái gì.'
                     callSendAPI(sender_psid, response)
                   }
                     else tfjs_AI(receivedMsg.text, sender_psid)
@@ -214,6 +189,7 @@ module.exports.handlePostback = (sender_psid , received_postback)=>{
     switch (payload) {
         case 'GET_STARTED': {
             response = { "text": "Bắt đầu"}
+            callSendAPI(sender_psid, response)
             break
         }
         case 'yes': {
