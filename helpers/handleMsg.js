@@ -158,6 +158,7 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
                         }
                       }
                     }
+                    callSendAPI(sender_psid, response)
                   }
                     else tfjs_AI(receivedMsg.text, sender_psid)
                   })
@@ -168,36 +169,36 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
         }else if(receivedMsg.attachments){
         let attachment_url = receivedMsg.attachments[0].payload.url
 /*message : */
-     response = {
-                // Get the URL of the message attachment
-          "attachment": {
-            "type": "template",
-            "payload": {
-              "template_type": "generic",
-              "elements": [{
-                "title": "Is this the right picture?",
-                "subtitle": "Tap a button to answer.",
-                "image_url": attachment_url,
-                "buttons": [
-                  {
-                    "type": "postback",
-                    "title": "Yes!",
-                    "payload": "yes",
-                  },
-                  {
-                    "type": "postback",
-                    "title": "No!",
-                    "payload": "no",
+            response = {
+                        // Get the URL of the message attachment
+                  "attachment": {
+                    "type": "template",
+                    "payload": {
+                      "template_type": "generic",
+                      "elements": [{
+                        "title": "Is this the right picture?",
+                        "subtitle": "Tap a button to answer.",
+                        "image_url": attachment_url,
+                        "buttons": [
+                          {
+                            "type": "postback",
+                            "title": "Yes!",
+                            "payload": "yes",
+                          },
+                          {
+                            "type": "postback",
+                            "title": "No!",
+                            "payload": "no",
+                          }
+                        ],
+                      }]
+                    }
                   }
-                ],
-              }]
+                }
+                callSendAPI(sender_psid, response)
             }
-          }
-        }
-        // callSendAPI(sender_psid, response)
-    }
     // Send the response message
-    callSendAPI(sender_psid, response)
+    // callSendAPI(sender_psid, response)
 }
  // Handle postbacks
 module.exports.handlePostback = (sender_psid , received_postback)=>{
