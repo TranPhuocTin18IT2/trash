@@ -138,8 +138,8 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
                 .toArray((err, docs) => {
                   assert.equal(err, null)
                   if (!docs.length) {
+                    response = { "text": 'Tôi không hiểu bạn đang nói cái gì.'}
                     console.log('Chua ton tai')
-                    response = 'Tôi không hiểu bạn đang nói cái gì.'
                     // callSendAPI(sender_psid, response)
                   }
                     else{
