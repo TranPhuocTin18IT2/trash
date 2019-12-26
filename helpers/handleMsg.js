@@ -128,7 +128,6 @@ request(url, (err, response, data) => {
 module.exports.handleMessage = (sender_psid, receivedMsg)=>{
     let response 
     if(receivedMsg.text){
-    
         let validMess = regexMess.vaidateMessage(receivedMsg.text)
         let lowerCase = validMess.toString().toLowerCase()   
          console.log(lowerCase)
@@ -141,20 +140,28 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
                   if (!docs.length) {
                     console.log('Chua ton tai')
                     response = {
-                      "message": {
-                        "attachment": {
-                          "type": "template",
-                          "payload": {
-                            "template_type": "button",
-                            "text": "What do you want to do next?",
+                      // Get the URL of the message attachment
+                      "attachment": {
+                        "type": "template",
+                        "payload": {
+                          "template_type": "generic",
+                          "elements": [{
+                            "title": "Is this the right picture?",
+                            "subtitle": "Tap a button to answer.",
+                            "image_url": receivedMsg.text,
                             "buttons": [
                               {
-                                "type": "web_url",
-                                "url": "https://www.messenger.com",
-                                "title": "Visit Messenger"
+                                "type": "postback",
+                                "title": "Yes!",
+                                "payload": "yes",
                               },
-                            ]
-                          }
+                              {
+                                "type": "postback",
+                                "title": "No!",
+                                "payload": "no",
+                              }
+                            ],
+                          }]
                         }
                       }
                     }
