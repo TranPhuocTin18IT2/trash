@@ -135,7 +135,7 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
             mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }, (err, db) => {
               assert.equal(null, err)
               db.collection('mailbox')
-                .find({ text: `${validMess}` }, { projection: { _id: 0, text: 1, type: 1 } })
+                .find({ text: `${lowerCase}` }, { projection: { _id: 0, text: 1, type: 1 } })
                 .toArray((err, docs) => {
                   assert.equal(err, null)
                   if (!docs.length) console.log('Chua ton tai')
