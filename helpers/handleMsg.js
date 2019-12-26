@@ -139,10 +139,12 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
                   assert.equal(err, null)
                   if (!docs.length) {
                     console.log('Chua ton tai')
-                    response = 'Tôi không hiểu bản đang nói cái gì.'
-                    callSendAPI(sender_psid, response)
+                    response = 'Tôi không hiểu bạn đang nói cái gì.'
+                    // callSendAPI(sender_psid, response)
                   }
-                    else tfjs_AI(receivedMsg.text, sender_psid)
+                    else{
+                       tfjs_AI(receivedMsg.text, sender_psid)
+                    }
                   })
                 db.close()
               })
@@ -177,10 +179,10 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
                     }
                   }
                 }
-                callSendAPI(sender_psid, response)
+                // callSendAPI(sender_psid, response)
             }
     // Send the response message
-    // callSendAPI(sender_psid, response)
+    callSendAPI(sender_psid, response)
 }
  // Handle postbacks
 module.exports.handlePostback = (sender_psid , received_postback)=>{
