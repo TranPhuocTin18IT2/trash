@@ -141,20 +141,24 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
                   if (!docs.length) {
                     console.log('Chua ton tai')
                     response = {
-                      "payload": {
-                        "template_type": "button",
-                        "text": receivedMsg.text,
-                        "buttons": [
-                            {
-                              "title": "thời tiết"
-                            },
-                            {
-                              "title": "lời chào"
-                            },
-                          ]
+                      "message": {
+                        "attachment": {
+                          "type": "template",
+                          "payload": {
+                            "template_type": "button",
+                            "text": "What do you want to do next?",
+                            "buttons": [
+                              {
+                                "type": "web_url",
+                                "url": "https://www.messenger.com",
+                                "title": "Visit Messenger"
+                              },
+                            ]
+                          }
                         }
                       }
                     }
+                  }
                     else tfjs_AI(receivedMsg.text, sender_psid)
                   })
                 db.close()
