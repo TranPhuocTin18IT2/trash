@@ -6,7 +6,7 @@ const vntk = require("vntk")
 const train = require('./training')
 // phương thức tách từ
 const tokenizer = vntk.wordTokenizer();
-let text = 'xin chào, ngày mai thời tiết thế nào?'
+// let text = 'xin chào, ngày mai thời tiết thế nào?'
 let lswords = new Array() // mảng chứa các từ/ cụm từ được tách từ câu
 let arrayMatrixWeights = new Array() //mảng chứa các mảng ma trận trọng số cho các câu data
 let worDictTest_i = new Map()
