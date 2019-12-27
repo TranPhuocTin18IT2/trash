@@ -126,7 +126,7 @@ request(url, (err, response, data) => {
 
 //check
 const check = (msg) => {
-  let split = test.cleanMsg(msg).split(' ')
+  let split = predict.cleanMsg(msg).split(' ')
   console.log(split)
   let count = 0
   for (let i in split) {
