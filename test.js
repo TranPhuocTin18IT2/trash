@@ -1,7 +1,7 @@
 const test = require('./predict')
 const train = require('./training')
 const tf = require('@tensorflow/tfjs-node')
-let text = ' Cảm ơn'
+let text = 'xin chao'
 // let data = test.matrixWeights(text)
 // console.log('matrix',test.matrixWeights(text))
 // async function prediction() {
@@ -14,4 +14,25 @@ let text = ' Cảm ơn'
 //     return train.types[pridictTensor]
 // }
 // prediction()
-console.log(text.toLowerCase())
+// console.log(train.dictionary)
+const check = (msg) =>{
+    let split = test.cleanMsg(msg).split(' ')
+    console.log(split)
+    let count = 0 
+    for(let i in split) { 
+        train.dictionary.forEach(j =>{
+           switch (split[i]) {
+              case j:
+                  console.log(split[i])
+                  count++
+                  break
+              default:
+                  break;
+           }
+        })
+    }
+    if(count<1) return false
+    return true
+}
+
+console.log(check(text))

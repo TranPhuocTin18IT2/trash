@@ -19,6 +19,7 @@ let dictionary = new Array()
 let lsWordOfData = new Array()
 //mảng chứa các mảng ma trận trọng số cho các câu data
 let arrayMatrixWeights = new Array()
+let te;
 let vectors = new Array()
     // hàm làm sạch câu
   
@@ -34,7 +35,6 @@ let vectors = new Array()
             news = news + newstr[i]
         /*    console.log(news)
             result: tptin18it2sictudnvn*/
-        let te;
         for (let i in arayStopWords) // duyệt qua file stopwords.txt
         {
             let re1 = new RegExp('\w*' + arayStopWords[i], 'gi');
@@ -199,7 +199,7 @@ module.exports = {
     lsWordOfData,
     countWords,
     totalInputs,
-    types
+    types,
 }
 
 // ------------------------------------------------------------------------------------------

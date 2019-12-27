@@ -124,7 +124,26 @@ request(url, (err, response, data) => {
     // console.log(now + forecast_j);
   });
 
-//
+//check
+const check = (msg) => {
+  let split = test.cleanMsg(msg).split(' ')
+  console.log(split)
+  let count = 0
+  for (let i in split) {
+    train.dictionary.forEach(j => {
+      switch (split[i]) {
+        case j:
+          console.log(split[i])
+          count++
+          break
+        default:
+          break;
+      }
+    })
+  }
+  if (count < 1) return false
+  return true
+}
 module.exports.handleMessage = (sender_psid, receivedMsg)=>{
     let response 
     if(receivedMsg.text){
@@ -137,9 +156,9 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
                 .find({ text: `${lowerCase}` }, { projection: { _id: 0, text: 1, type: 1 } })
                 .toArray((err, docs) => {
                   assert.equal(err, null)
-                  if (!docs.length) {
+                  if (!docs.length || check(lowerCase)==false) {
                     response = { "text": 'Tôi không hiểu bạn đang nói cái gì.'}
-                    console.log('Chua ton tai')
+                    // console.log('Chua ton tai')
                     // callSendAPI(sender_psid, response)
                   }
                     else{
