@@ -71,5 +71,3 @@ module.exports.matrixWeights = (text) => {
     arrayMatrixWeights.push(mapToArrayTest)
     return arrayMatrixWeights
 }
-
-this.matrixWeights(text)
