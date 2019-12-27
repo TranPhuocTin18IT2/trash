@@ -156,7 +156,7 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
                 .find({ text: `${lowerCase}` }, { projection: { _id: 0, text: 1, type: 1 } })
                 .toArray((err, docs) => {
                   assert.equal(err, null)
-                  if (!docs.length || !check(lowerCase)) {
+                  if (!docs.length && !check(lowerCase)) {
                     response = { "text": 'Tôi không hiểu bạn đang nói cái gì.'}
                     // console.log('Chua ton tai')
                     callSendAPI(sender_psid, response)
