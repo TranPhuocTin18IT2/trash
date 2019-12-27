@@ -159,7 +159,7 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
                   if (!docs.length || check(lowerCase)==false) {
                     response = { "text": 'Tôi không hiểu bạn đang nói cái gì.'}
                     // console.log('Chua ton tai')
-                    // callSendAPI(sender_psid, response)
+                    callSendAPI(sender_psid, response)
                   }
                     else{
                        tfjs_AI(receivedMsg.text, sender_psid)
@@ -198,10 +198,10 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
                     }
                   }
                 }
-                // callSendAPI(sender_psid, response)
+                callSendAPI(sender_psid, response)
             }
     // Send the response message
-    callSendAPI(sender_psid, response)
+    // callSendAPI(sender_psid, response)
 }
  // Handle postbacks
 module.exports.handlePostback = (sender_psid , received_postback)=>{
