@@ -1,7 +1,5 @@
 const fs = require('fs')
 const path = require('path')
-const readData = require('./readData').findData()
-console.log(readData)
 // thử viện tách từ
 const vntk = require('vntk')
 // phương thức tách từ
