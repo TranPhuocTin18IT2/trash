@@ -126,7 +126,7 @@ request(url, (err, response, data) => {
 
 //check
 let check = (msg) => {
-  let split = train.cleanMsg(msg).split(' ')
+  let split = train.clean(msg).split(' ')
   console.log(split)
   let count = 0
   for (let i in split) {
