@@ -125,7 +125,7 @@ request(url, (err, response, data) => {
   });
 
 //check
-const check = (msg) => {
+let check = (msg) => {
   let split = predict.cleanMsg(msg).split(' ')
   console.log(split)
   let count = 0

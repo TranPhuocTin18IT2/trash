@@ -10,20 +10,10 @@ const tokenizer = vntk.wordTokenizer();
 let lswords = new Array() // mảng chứa các từ/ cụm từ được tách từ câu
 let arrayMatrixWeights = new Array() //mảng chứa các mảng ma trận trọng số cho các câu data
 let worDictTest_i = new Map()
-//clean cau
-module.exports.cleanMsg = (msg) => {
-  let reqex = /[^()_+\-=\[\]{};':"\\|!@#$%^&*,.<>\/?*~]+/gi;
-  let result = msg.match(reqex); // loai bo cac ki tu dac biet
-  let newStr = ""; // gan chuoi moi la newStr
-  for (let i in result) newStr = newStr + result[i]; // duyet mang de tao chuoi moi
-  // tách  từ
-  let splitWord = tokenizer.tag(newStr, "text");
-  // console.log(splitWord);
-  return splitWord;
-}
+
 // chuyen vao mang
 let msgToArray = (msg) => {
-  let clean = this.cleanMsg(msg)
+  let clean = train.clean(msg)
   let lowerCase = clean.toLowerCase()
   lswords = lowerCase.split(' ')
 }

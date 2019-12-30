@@ -23,7 +23,7 @@ let te;
 let vectors = new Array()
     // hàm làm sạch câu
   
-    const clean = (str) => {
+module.exports.clean = (str) => {
         // regex loai bo cac ky tu dac biet
         let reqex = /[^()_+\-=\[\]{};':"\\|!@#$%^&*,.<>\/?*~]+/gi
         var newstr = str.match(reqex)
@@ -79,7 +79,8 @@ let vectors = new Array()
             { text: 'bạn có rảnh không', type: 'greetings' }
             { text: 'tạm biệt', type: 'greetings' }*/
         // clean
-        let cleanString = clean(words[i].text)
+        // console.log(words[i].text)
+        let cleanString = this.clean(words[i].text)
         // console.log(cleanString)
         // tạo mảng chứa từ trong mỗi câu
         let textParser = cleanString.split(' ')
@@ -172,7 +173,7 @@ let vectors = new Array()
         }
         arrayMatrixWeights.push(worDict_i)
     }
-    // console.log('arrayMatrixWeights',arrayMatrixWeights)
+    console.log('arrayMatrixWeights',arrayMatrixWeights)
 
     for (let maps of arrayMatrixWeights) {
         let maptoArray = [...maps.values()]
@@ -194,7 +195,7 @@ let vectors = new Array()
         typesInput.push(types.indexOf(item))
     })
     // console.log('class: ', typesInput, '\n', types)
-module.exports = {
+module.exports.el= {
     dictionary,
     lsWordOfData,
     countWords,
