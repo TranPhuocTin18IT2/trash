@@ -9,8 +9,8 @@ const uri =
   "mongodb://dbSICT:sictK18@anonymous-shard-00-01-app1j.mongodb.net:27017/weather-chat-bot?ssl=true&replicaSet=anonymous-shard-0&authSource=admin";
 
 const tf = require('@tensorflow/tfjs-node')
-const train = require("../training");
-const predict = require('../predict')
+const handle_data = require("../handle_data");
+const predict = require('../prediction')
 
 const parseString = require("xml2js").parseString;
 const util = require("util");
@@ -20,6 +20,7 @@ let cities = "danang";
 let countries = "vn";
 let url = `https://api.openweathermap.org/data/2.5/forecast?q=${cities},${countries}&mode=xml&appid=${apikey}`;
 //
+let dictionary = handle_data.create_Dictionary()
 let date = new Date();
 var hour = Number(date.getHours());
 var dateForecast = Number(date.getDate()) + 1;
@@ -126,11 +127,11 @@ request(url, (err, response, data) => {
 
 //check
 let check = (msg) => {
-  let split = train.clean(msg).split(' ')
+  let split = handle_data.clean_string(msg).split(' ')
   console.log(split)
   let count = 0
   for (let i in split) {
-    train.dictionary.forEach(j => {
+    dictionary.forEach(j => {
       switch (split[i]) {
         case j:
           console.log(split[i])
@@ -288,10 +289,10 @@ const callSendAPI = (sender_psid,response,cb=null)=>{
 
 const tfjs_AI = async (fbUserMsg,senderID) =>{
     let senderName = ""
-    let data = predict.matrixWeights(fbUserMsg) 
+    let data = predict.handleMessage(fbUserMsg) 
     let loadmodel = await tf.loadLayersModel("file://model/model.json")
     let index 
-
+  let types = handle_data.typeList()
     await loadmodel.weights.forEach(element => {
       console.log(element.name, element.shape)
     })
@@ -307,7 +308,7 @@ const tfjs_AI = async (fbUserMsg,senderID) =>{
       index = predictions[i]
       // console.log(predictions[i])
     }
-    await handleMsg(train.types[index],senderName,senderID)
+    await handleMsg(types[index],senderName,senderID)
 }
 const getSenderInformation = (senderID,cb) =>{
     return request(
