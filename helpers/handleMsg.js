@@ -288,29 +288,14 @@ const callSendAPI = (sender_psid,response,cb=null)=>{
 };
 
 const tfjs_AI = async (fbUserMsg,senderID) =>{
-    let senderName = ""
-    let data = predict.handleMessage(fbUserMsg) 
-    let loadmodel = await tf.loadLayersModel("file://model/model.json")
-    let index 
-  let types = handle_data.typeList()
-    await loadmodel.weights.forEach(element => {
-      console.log(element.name, element.shape)
-    })
+    let senderName = ''
+    let type = predict.predictions(fbUserMsg)
     await getSenderInformation(senderID,(senderInfo)=>{
         senderName = senderInfo.first_name
     })
-    let predictions = loadmodel
-      .predict(tf.tensor2d(data))
-      .argMax(1)
-      .dataSync(0)
-    // console.log(typeof predictions)
-    for(let i in predictions){
-      index = predictions[i]
-      // console.log(predictions[i])
-    }
-    await handleMsg(types[index],senderName,senderID)
+    await handleMsg(type,senderName,senderID)
 }
-const getSenderInformation = (senderID,cb) =>{
+let getSenderInformation = (senderID,cb) =>{
     return request(
       {
         url: "https://graph.facebook.com/v3.2/" + senderID,
@@ -328,7 +313,7 @@ const getSenderInformation = (senderID,cb) =>{
     )
 }
 
-const handleMsg = (tfjs_data,senderName,senderID)=>{
+let handleMsg = (tfjs_data,senderName,senderID)=>{
     if(tfjs_data=='greetings_0'){
          let response = {
            text: `Chào bạn ${senderName}, tôi có thể giúp gì cho bạn`

@@ -178,5 +178,33 @@
   {
     "text": "tối nay",
     "type": "time"
+  },
+  {
+    "text": "cc",
+    "type": "swearing"
+  },
+  {
+    "text": "cái cc",
+    "type": "swearing"
+  },
+  {
+    "text": "cc nè",
+    "type": "swearing"
+  },
+  {
+    "text": "fuck you",
+    "type": "swearing"
+  },
+  {
+    "text": "fuck",
+    "type": "swearing"
+  },
+  {
+    "text": "bitch",
+    "type": "swearing"
+  },
+  {
+    "text": "what the fuck",
+    "type": "swearing"
   }
 ]
