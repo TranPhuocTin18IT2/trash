@@ -152,8 +152,8 @@ let check = (msg) => {
 module.exports.handleMessage = (sender_psid, receivedMsg)=>{
     let response 
     if(receivedMsg.text){
-        let validMess = regexMess.vaidateMessage(receivedMsg.text)
-        let lowerCase = validMess.toString().toLowerCase()   
+        let validMess = handle_data.clean_string(receivedMsg.text)
+        let lowerCase = validMess.toLowerCase()
          console.log(lowerCase)
             mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }, (err, db) => {
               assert.equal(null, err)
@@ -162,7 +162,7 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
                 .toArray((err, docs) => {
                   assert.equal(err, null)
                   if (!docs.length) {
-                    response = { "text": 'Tôi không hiểu bạn đang nói cái gì.'}
+                    response = { text: 'Tôi không hiểu bạn đang nói cái gì.'}
                     // console.log('Chua ton tai')
                     callSendAPI(sender_psid, response)
                   }
@@ -298,7 +298,7 @@ const tfjs_AI = async (fbUserMsg,senderID) =>{
 let getSenderInformation = (senderID,cb) =>{
     return request(
       {
-        url: "https://graph.facebook.com/v3.2/" + senderID,
+        url: `https://graph.facebook.com/v3.2/${senderID}`,
         qs: {
           access_token: cfg.PAGE_ACCESS_TOKEN,
           fields: "first_name"
@@ -348,5 +348,12 @@ let handleMsg = (tfjs_data,senderName,senderID)=>{
       }
       callSendAPI(senderID, response)
       return
+    }
+    if(tfjs_data == "swearing") {
+        let response = {
+            text: `${senderName}, vui lòng không nói tục `
+        }
+        callSendAPI(senderID, response)
+        return
     }
 }
