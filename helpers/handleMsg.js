@@ -289,7 +289,7 @@ const callSendAPI = (sender_psid,response,cb=null)=>{
 
 const tfjs_AI = async (fbUserMsg,senderID) =>{
     let senderName = ''
-    let type = predict.predictions(fbUserMsg)
+    let type = await predict.predictions(fbUserMsg)
     await getSenderInformation(senderID,(senderInfo)=>{
         senderName = senderInfo.first_name
     })
