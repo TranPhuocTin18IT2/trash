@@ -9,7 +9,8 @@ let ReadStopWordFile = fs.readFileSync(path.join(__dirname, './stopwords.txt'), 
 let arayStopWords = ReadStopWordFile.split()
 // doc file du lieu train
 let data = fs.readFileSync('./dataInput.json','utf8')
-// console.log(data)
+// let mailbox = require('../models/mailbox')
+// console.log(JSON.stringify(data))
 // parser data json
 let words = JSON.parse(data)
 // băt đầu tạo mảng từ điển

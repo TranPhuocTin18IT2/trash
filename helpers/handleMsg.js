@@ -2,7 +2,7 @@ const cfg = require('./config')
 const timeout = 3000
 const request = require('request')
 const tf = require('@tensorflow/tfjs-node')
-const h_d = require("../machine_learning/handle_data")
+const handle_data = require("../machine_learning/handle_data")
 const predict = require('../machine_learning/prediction')
 
 const parseString = require("xml2js").parseString;
@@ -258,27 +258,12 @@ const callSendAPI = (sender_psid,response,cb=null)=>{
 };
 
 const tfjs_AI = async (fbUserMsg,senderID) =>{
-    let senderName = ""
-    let data = predict.handleMessage(fbUserMsg)
-    let loadmodel = await tf.loadLayersModel("file://model/model.json")
-    let index = 0
-    let types = h_d.typeList()
-    await loadmodel.weights.forEach(element => {
-        console.log(element.name, element.shape)
-    })
+    let senderName = ''
+    let type = await predict.predictions(fbUserMsg)
     await getSenderInformation(senderID,(senderInfo)=>{
         senderName = senderInfo.first_name
     })
-    let predictions = loadmodel
-        .predict(tf.tensor2d(data))
-        .argMax(1)
-        .dataSync(0)
-    // console.log(typeof predictions)
-    for(let i in predictions){
-        index = predictions[i]
-        // console.log(predictions[i])
-    }
-    await handleMsg(types[index],senderName,senderID)
+    await handleMsg(type,senderName,senderID)
 }
 const getSenderInformation = (senderID,cb) =>{
     return request(

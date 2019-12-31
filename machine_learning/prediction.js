@@ -1,17 +1,19 @@
+const tf = require('@tensorflow/tfjs-node')
 const handle_data = require('./handle_data')
-let text = 'cái cc nè'
+let text = 'cc'
 let lsWords = new Array()
 let dictionary = handle_data.create_Dictionary()
 let lsWordOfData = handle_data.ls_Word_Data()
 // console.log(lsWordOfData)
 let arrayMatrixWeights = new Array() //mảng chứa các mảng ma trận trọng số cho các câu data
 let worDictTest_i = new Map()
+
 let handle_text = (text) =>{
     let clean_text = handle_data.clean_string(text)
     let tolowercase = clean_text.toLowerCase()
     lsWords = tolowercase.split(' ')
 }
-module.exports.handleMessage= (message) => {
+let toArrayWeightMatrix = (message) => {
     handle_text(message)
     for (let j in dictionary) {
         worDictTest_i.set(dictionary[j], 0);
@@ -51,3 +53,20 @@ module.exports.handleMessage= (message) => {
     return arrayMatrixWeights
 }
 // this.handleMessage(text)
+module.exports.predictions = async (msg) =>{
+    let data = toArrayWeightMatrix(msg)
+    let index = 0
+    let types = handle_data.typeList()
+    let loadmodel = await tf.loadLayersModel("file://model/model.json")
+    await loadmodel.weights.forEach(element => {
+        console.log(element.name, element.shape)
+    })
+    let predictions = loadmodel
+        .predict(tf.tensor2d(data))
+        .argMax(1)
+        .dataSync(0)
+    for(let i in predictions){
+        index = predictions[i]
+    }
+    return types[index]
+}
