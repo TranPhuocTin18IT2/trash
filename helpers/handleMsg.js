@@ -154,6 +154,7 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
                 if(check(receivedMsg.text) == true){
                     console.log(lsWords)
                     let m = lsWords.toString().replace(',',' ')
+                    console.log(m)
                     tfjs_AI(m.replace('_', ' '), sender_psid)
                 }
                 else {
