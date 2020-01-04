@@ -26,7 +26,7 @@ let toArrayWeightMatrix = (message) => {
         worDictTest_i.set(word, index);
     }
     let tong_so_tu_trong_cau = handle_data.countWords(lsWords);
-    console.log(tong_so_tu_trong_cau)
+    // console.log(tong_so_tu_trong_cau)
     for (let word of lsWords) {
         //cập nhật lại trọng số là TF-IDF của từ trong câu
         var index = worDictTest_i.get(word);
@@ -58,9 +58,9 @@ module.exports.predictions = async (msg) =>{
     let index = 0
     let types = handle_data.typeList()
     let loadmodel = await tf.loadLayersModel("file://model/model.json")
-    await loadmodel.weights.forEach(element => {
-        console.log(element.name, element.shape)
-    })
+    // await loadmodel.weights.forEach(element => {
+    //     console.log(element.name, element.shape)
+    // })
     let predictions = loadmodel
         .predict(tf.tensor2d(data))
         .argMax(1)

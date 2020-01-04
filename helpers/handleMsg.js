@@ -151,16 +151,14 @@ let check = (msg) => {
 module.exports.handleMessage = (sender_psid, receivedMsg)=>{
     let response 
     if(receivedMsg.text){
-
-        if(check(receivedMsg.text)){
-            console.log(lsWords.toString())
-            let m = lsWords.toString()
-            tfjs_AI(m.replace(',',' '), sender_psid)
-        }
-        else {
-            response = {text: 'Tôi không hiểu bạn đang nói gì'}
-            callSendAPI(sender_psid, response)
-        }
+                if(check(receivedMsg.text) == true){
+                    let m = lsWords.toString()
+                    tfjs_AI(m.replace(',',' '), sender_psid)
+                }
+                else {
+                    response = {text: 'Tôi không hiểu bạn đang nói gì'}
+                    callSendAPI(sender_psid, response)
+                }
         }else if(receivedMsg.attachments){
         let attachment_url = receivedMsg.attachments[0].payload.url
 /*message : */
