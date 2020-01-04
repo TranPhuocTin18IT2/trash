@@ -154,7 +154,7 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
 
         if(check(receivedMsg.text)){
             console.log(lsWords.toString())
-            tfjs_AI(lsWords.toString(), sender_psid)
+            tfjs_AI(receivedMsg.text, sender_psid)
         }
         else {
             response = {text: 'Tôi không hiểu bạn đang nói gì'}
