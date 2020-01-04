@@ -124,56 +124,41 @@ request(url, (err, response, data) => {
     });
     // console.log(now + forecast_j);
   });
-
+let lsWords = new Array()
+let handle_text = (text) =>{
+    let clean_text = handle_data.clean_string(text)
+    let tolowercase = clean_text.toLowerCase()
+    lsWords = tolowercase.split(' ')
+    return lsWords
+}
 //check
 let check = (msg) => {
-  let split = handle_data.clean_string(msg).split(' ')
-  console.log(split)
-  let count = 0
-  for (let i in split) {
-    dictionary.forEach(j => {
-      switch (split[i]) {
-        case j:
-          console.log(split[i])
-          count++
-          break
-        default:
-          break;
+  handle_text(msg)
+  for(let i in msg){
+      for(let j in dictionary){
+          if(dictionary.indexOf(msg[i]) === -1){
+              msg.splice(i,1)
+          }else{
+              break
+          }
       }
-    })
   }
-  if (count < split.length) 
-  {    
-    return false 
+  if(msg.length<1){
+      return false
   }
-  else 
-  return true 
+  return true
 }
 module.exports.handleMessage = (sender_psid, receivedMsg)=>{
     let response 
     if(receivedMsg.text){
-        let validMess = handle_data.clean_string(receivedMsg.text)
-        let lowerCase = validMess.toLowerCase()
-         console.log(lowerCase)
-            mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }, (err, db) => {
-              assert.equal(null, err)
-              db.collection('mailbox')
-                .find({ text: `${lowerCase}` }, { projection: { _id: 0, text: 1, type: 1 } })
-                .toArray((err, docs) => {
-                  assert.equal(err, null)
-                  if (!docs.length) {
-                    response = { text: 'Tôi không hiểu bạn đang nói cái gì.'}
-                    // console.log('Chua ton tai')
-                    callSendAPI(sender_psid, response)
-                  }
-                    else{
-                       tfjs_AI(receivedMsg.text, sender_psid)
-                    }
-                  })
-                db.close()
-              })
-              // tfjs_AI(receivedMsg.text, sender_psid)
-            // response = {"text": `You sent the message: "${receivedMsg.text}". Now send me an image!`}
+        console.log(lsWords.toString())
+        if(check(receivedMsg.text)){
+            tfjs_AI(lsWords.toString(), sender_psid)
+        }
+        else {
+            response = {text: 'Tôi không hiểu bạn đang nói gì'}
+            callSendAPI(sender_psid, response)
+        }
         }else if(receivedMsg.attachments){
         let attachment_url = receivedMsg.attachments[0].payload.url
 /*message : */
