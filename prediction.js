@@ -44,11 +44,11 @@ let toArrayWeightMatrix = (message) => {
         let idf = handle_data.totalInputs() / count;
         worDictTest_i.set(word, Number((tf * idf).toFixed(2)));
     }
-        Array.from(worDictTest_i).map(w => {
-          console.log(w)
-        })
+        // Array.from(worDictTest_i).map(w => {
+        //   console.log(w)
+        // })
     let mapToArrayTest = [...worDictTest_i.values()]
-    console.log("test: " + mapToArrayTest)
+    // console.log("test: " + mapToArrayTest)
     arrayMatrixWeights.push(mapToArrayTest)
     return arrayMatrixWeights
 }
