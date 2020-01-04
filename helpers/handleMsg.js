@@ -151,8 +151,9 @@ let check = (msg) => {
 module.exports.handleMessage = (sender_psid, receivedMsg)=>{
     let response 
     if(receivedMsg.text){
-        console.log(lsWords.toString())
+
         if(check(receivedMsg.text)){
+            console.log(lsWords.toString())
             tfjs_AI(lsWords.toString(), sender_psid)
         }
         else {
