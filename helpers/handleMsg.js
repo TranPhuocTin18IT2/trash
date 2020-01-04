@@ -134,10 +134,10 @@ let handle_text = (text) =>{
 //check
 let check = (msg) => {
   handle_text(msg)
-  for(let i in msg){
+  for(let i in lsWords){
       for(let j in dictionary){
-          if(dictionary.indexOf(msg[i]) === -1){
-              msg.splice(i,1)
+          if(dictionary.indexOf(lsWords[i]) === -1){
+              lsWords.splice(i,1)
           }else{
               break
           }
