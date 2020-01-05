@@ -272,10 +272,9 @@ const callSendAPI = (sender_psid,response,cb=null)=>{
 };
 
 const tfjs_AI = async (fbUserMsg,senderID) => {
-    let location  = ''
     let result = await predict.predictions(fbUserMsg)
     await getSenderInformation(senderID, (senderInfo) => {
-        senderName = JSON.stringify(senderInfo.location)
+        senderName = senderInfo.city_id
     })
     await handleMsg(result, senderID)
 }
@@ -285,7 +284,7 @@ let getSenderInformation = (senderID,cb) =>{
         url: `https://graph.facebook.com/v3.2/${senderID}`,
         qs: {
           access_token: cfg.PAGE_ACCESS_TOKEN,
-          fields: 'location'
+          fields: "city_id"
         },
         method: "GET"
       },
