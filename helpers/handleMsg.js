@@ -275,7 +275,7 @@ const tfjs_AI = async (fbUserMsg,senderID) => {
     let result = await predict.predictions(fbUserMsg)
     await getSenderInformation(senderID, (senderInfo) => {
         senderName = senderInfo.first_name
-        console.log(senderInfo.latitude)
+        console.log(senderInfo.city)
     })
     await handleMsg(result, senderID)
 }
