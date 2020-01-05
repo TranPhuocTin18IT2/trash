@@ -281,10 +281,10 @@ const tfjs_AI = async (fbUserMsg,senderID) => {
 let getSenderInformation = (senderID,cb) =>{
     return request(
       {
-        url: `https://graph.facebook.com/v3.2/${senderID}`,
+            url: `https://graph.facebook.com/v3.2/${senderID}`,
         qs: {
           access_token: cfg.PAGE_ACCESS_TOKEN,
-          fields: "first_name"
+          fields: "{first_name}"
         },
         method: "GET"
       },
