@@ -10,7 +10,7 @@ console.log(vectors)
 let word_Input_Tensor = tf.tensor2d(vectors)
 let type_Tensor = tf.tensor1d(types_Input, 'int32')
 let type_input_Tensor = tf.oneHot(type_Tensor,type_list.length)
-//tạo model
+//tạo models
 let model = tf.sequential()
 
 //thêm hiddenlayer
@@ -32,18 +32,18 @@ model.compile({
     optimizer: tf.train.sgd(0.2),
     loss: "categoricalCrossentropy"
 })
-//train model
+//train models
 let options = {
     epochs: 100,
     validationSplit: 0.1,
     shuffle: true
 }
-// model.weights.forEach(w=>{
+// models.weights.forEach(w=>{
 //     console.log(w.name, w.shape);
 // })
 async function train(){
     await model.fit(word_Input_Tensor,type_input_Tensor,options)
-    await model.save('file://model')
+    await model.save('file://models')
 }
 train()
 

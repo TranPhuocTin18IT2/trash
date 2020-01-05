@@ -5,7 +5,7 @@ let text = 'tạm biệt, hôm nay thời tiết thế nào?'
 // let data = test.matrixWeights(text)
 // console.log('matrix',test.matrixWeights(text))
 // async function prediction() {
-//   let loadmodel = await tf.loadLayersModel('file://model/model.json')
+//   let loadmodel = await tf.loadLayersModel('file://models/models.json')
 //   await loadmodel.weights.forEach(element => {
 //     console.log(element.name, element.shape)
 //   })

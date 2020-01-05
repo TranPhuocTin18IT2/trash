@@ -57,7 +57,7 @@ module.exports.predictions = async (msg) =>{
     let data = toArrayWeightMatrix(msg)
     let index = 0
     let types = handle_data.typeList()
-    let loadmodel = await tf.loadLayersModel("file://model/model.json")
+    let loadmodel = await tf.loadLayersModel("file://models/models.json")
     // await loadmodel.weights.forEach(element => {
     //     console.log(element.name, element.shape)
     // })

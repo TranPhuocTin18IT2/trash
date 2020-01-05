@@ -214,7 +214,7 @@ let typeinputTensor = tf.oneHot(typeTensor,types.length)
 
 // typeinputTensor.print()
 
-//tạo model
+//tạo models
 let model = tf.sequential()
 
 //thêm hiddenlayer
@@ -238,18 +238,18 @@ model.compile({
 })
 
 
-//train model
+//train models
 let options = {
     epochs: 100,
     validationSplit: 0.1,
     shuffle: true
 }
-    // model.weights.forEach(w=>{
+    // models.weights.forEach(w=>{
     //     console.log(w.name, w.shape);
     // })
 async function train(){
     await model.fit(wordInputTensor,typeinputTensor,options)
-    await model.save('file://model')
+    await model.save('file://models')
 }
 // train()
 
