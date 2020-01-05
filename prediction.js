@@ -1,20 +1,20 @@
 const tf = require('@tensorflow/tfjs-node')
 const handle_data = require('./handle_data')
 let text = 'cc'
-let lsWords = new Array()
+// let lsWords = new Array()
 let dictionary = handle_data.create_Dictionary()
 let lsWordOfData = handle_data.ls_Word_Data()
 // console.log(lsWordOfData)
 let arrayMatrixWeights = new Array() //mảng chứa các mảng ma trận trọng số cho các câu data
 let worDictTest_i = new Map()
 
-let handle_text = (text) =>{
-    let clean_text = handle_data.clean_string(text)
-    let tolowercase = clean_text.toLowerCase()
-    lsWords = tolowercase.split(' ')
-}
-let toArrayWeightMatrix = (message) => {
-    handle_text(message)
+// let handle_text = (text) =>{
+//     let clean_text = handle_data.clean_string(text)
+//     let tolowercase = clean_text.toLowerCase()
+//     lsWords = tolowercase.split(' ')
+// }
+let toArrayWeightMatrix = (lsWords) => {
+    // handle_text(message)
     for (let j in dictionary) {
         worDictTest_i.set(dictionary[j], 0);
     }

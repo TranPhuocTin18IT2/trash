@@ -151,6 +151,7 @@ let check = (msg) => {
 module.exports.handleMessage = (sender_psid, receivedMsg)=>{
     let response 
     if(receivedMsg.text){
+        console.log(check(receivedMsg.text))
                 if(check(receivedMsg.text) == true){
                     console.log(lsWords)
                     tfjs_AI(lsWords, sender_psid)
@@ -228,7 +229,7 @@ module.exports.handlePostback = (sender_psid , received_postback)=>{
                             }
                         }
                     }
-                    console.log(response)
+                    // console.log(response)
                     callSendAPI(sender_psid, response)
                 }, timeout)
             })
