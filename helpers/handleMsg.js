@@ -1,6 +1,6 @@
 const cfg = require('./config')
 const timeout = 3000
-const request = require('request')
+const request = require('request-promise')
 const mongoose = require('mongoose')
 const assert = require('assert')
 const model = require('../models/messages')
