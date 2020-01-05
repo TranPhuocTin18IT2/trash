@@ -285,7 +285,7 @@ let getSenderInformation = (senderID,cb) =>{
             url: `https://graph.facebook.com/v3.2/${senderID}`,
         qs: {
           access_token: cfg.PAGE_ACCESS_TOKEN,
-          fields: "first_name, city, country, latitude, longitude, "
+          fields: "first_name,city,country,latitude,longitude"
         },
         method: "GET"
       },
