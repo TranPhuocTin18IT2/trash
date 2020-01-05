@@ -8,13 +8,10 @@ const regexMess = require('./regexMessage')
 const uri =
   "mongodb://dbSICT:sictK18@anonymous-shard-00-01-app1j.mongodb.net:27017/weather-chat-bot?ssl=true&replicaSet=anonymous-shard-0&authSource=admin";
 
-const tf = require('@tensorflow/tfjs-node')
 const handle_data = require("../handle_data");
 const predict = require('../prediction')
 
 const parseString = require("xml2js").parseString;
-const util = require("util");
-const inspect = require("eyes").inspector({ maxLength: false });
 let apikey = "5e93b605b28ee0aae9b2d53f134d439b";
 let cities = "danang";
 let countries = "vn";
@@ -278,6 +275,7 @@ const tfjs_AI = async (fbUserMsg,senderID) => {
     let result = await predict.predictions(fbUserMsg)
     await getSenderInformation(senderID, (senderInfo) => {
         senderName = senderInfo.first_name
+        console.log(senderInfo.location)
     })
     await handleMsg(result, senderID)
 }

@@ -1,6 +1,5 @@
 const tf = require('@tensorflow/tfjs-node')
 const handle_data = require('./handle_data')
-let text = 'cc'
 // let lsWords = new Array()
 let dictionary = handle_data.create_Dictionary()
 let lsWordOfData = handle_data.ls_Word_Data()
@@ -57,10 +56,7 @@ module.exports.predictions = async (msg) =>{
     let data = toArrayWeightMatrix(msg)
     let index = 0
     let types = handle_data.typeList()
-    let loadmodel = await tf.loadLayersModel("file://models/models.json")
-    // await loadmodel.weights.forEach(element => {
-    //     console.log(element.name, element.shape)
-    // })
+    let loadmodel = await tf.loadLayersModel("file://model/model.json")
     let predictions = loadmodel
         .predict(tf.tensor2d(data))
         .argMax(1)
