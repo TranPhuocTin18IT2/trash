@@ -18,7 +18,7 @@ let countries = "vn";
 let url = `https://api.openweathermap.org/data/2.5/forecast?q=${cities},${countries}&mode=xml&appid=${apikey}`;
 //
 let dictionary = handle_data.create_Dictionary()
-let senderName
+let senderName = ''
 let date = new Date();
 var hour = Number(date.getHours());
 var dateForecast = Number(date.getDate()) + 1;
@@ -274,7 +274,7 @@ const callSendAPI = (sender_psid,response,cb=null)=>{
 const tfjs_AI = async (fbUserMsg,senderID) => {
     let result = await predict.predictions(fbUserMsg)
     await getSenderInformation(senderID, (senderInfo) => {
-        senderName = senderInfo.city_id
+        senderName = senderInfo.first_name
     })
     await handleMsg(result, senderID)
 }
@@ -284,7 +284,7 @@ let getSenderInformation = (senderID,cb) =>{
         url: `https://graph.facebook.com/v3.2/${senderID}`,
         qs: {
           access_token: cfg.PAGE_ACCESS_TOKEN,
-          fields: "city_id"
+          fields: "first_name"
         },
         method: "GET"
       },
