@@ -18,7 +18,7 @@ let countries = "vn";
 let url = `https://api.openweathermap.org/data/2.5/forecast?q=${cities},${countries}&mode=xml&appid=${apikey}`;
 //
 let dictionary = handle_data.create_Dictionary()
-let senderName = ''
+let senderName
 let date = new Date();
 var hour = Number(date.getHours());
 var dateForecast = Number(date.getDate()) + 1;
