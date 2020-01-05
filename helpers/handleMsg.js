@@ -275,11 +275,54 @@ const callSendAPI = (sender_psid,response,cb=null)=>{
 
 const tfjs_AI = async (fbUserMsg,senderID) =>{
     let senderName = ''
-    let type = await predict.predictions(fbUserMsg)
+    let result = await predict.predictions(fbUserMsg)
     await getSenderInformation(senderID,(senderInfo)=>{
         senderName = senderInfo.first_name
     })
-    await handleMsg(type,senderName,senderID)
+    await handleMsg = (senderID) => {
+        if(result=='greetings_0'){
+            let response = {
+                text: `Chào bạn ${senderName}, tôi có thể giúp gì cho bạn`
+            }
+            callSendAPI(senderID, response)
+            return
+        }
+        if(result == 'greetings_1'){
+            let response = {
+                text: 'tạm biệt'
+            }
+            callSendAPI(senderID, response)
+            return
+        }
+        if(result=='weather'){
+            let response = {
+                text: now+"\n"+forecast_j
+            }
+            callSendAPI(senderID, response)
+            return
+        }
+        if (result == "regards") {
+            let response = {
+                text: 'Tôi rất vui vì có thể giúp bạn.'
+            }
+            callSendAPI(senderID, response)
+            return
+        }
+        if (result == "recommendations") {
+            let response = {
+                text: `Trời hôm nay đẹp lắm ${senderName}`
+            }
+            callSendAPI(senderID, response)
+            return
+        }
+        if(result == "swearing") {
+            let response = {
+                text: `${senderName}, vui lòng không nói tục `
+            }
+            callSendAPI(senderID, response)
+            return
+        }
+    }
 }
 let getSenderInformation = (senderID,cb) =>{
     return request(
@@ -297,49 +340,4 @@ let getSenderInformation = (senderID,cb) =>{
         }
       }
     )
-}
-
-let handleMsg = (tfjs_data,senderName,senderID)=>{
-    if(tfjs_data=='greetings_0'){
-         let response = {
-           text: `Chào bạn ${senderName}, tôi có thể giúp gì cho bạn`
-         }
-         callSendAPI(senderID, response)
-         return
-    }
-    if(tfjs_data == 'greetings_1'){
-          let response = {
-            text: 'tạm biệt'
-          }
-          callSendAPI(senderID, response)
-          return
-    }
-    if(tfjs_data=='weather'){
-        let response = {
-          text: now+"\n"+forecast_j
-        }
-        callSendAPI(senderID, response)
-        return
-    }
-    if (tfjs_data == "regards") {
-      let response = {
-        text: 'Tôi rất vui vì có thể giúp bạn.'
-      }
-      callSendAPI(senderID, response)
-      return
-    }
-    if (tfjs_data == "recommendations") {
-      let response = {
-        text: `Trời hôm nay đẹp lắm ${senderName}`
-      }
-      callSendAPI(senderID, response)
-      return
-    }
-    if(tfjs_data == "swearing") {
-        let response = {
-            text: `${senderName}, vui lòng không nói tục `
-        }
-        callSendAPI(senderID, response)
-        return
-    }
 }
