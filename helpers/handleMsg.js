@@ -143,7 +143,7 @@ let check = (msg) => {
           }
       }
   }
-  if(msg.length<1){
+  if(lsWords.length<1){
       return false
   }
   return true
