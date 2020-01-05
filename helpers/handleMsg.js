@@ -21,6 +21,7 @@ let countries = "vn";
 let url = `https://api.openweathermap.org/data/2.5/forecast?q=${cities},${countries}&mode=xml&appid=${apikey}`;
 //
 let dictionary = handle_data.create_Dictionary()
+let senderName = ''
 let date = new Date();
 var hour = Number(date.getHours());
 var dateForecast = Number(date.getDate()) + 1;
@@ -273,56 +274,12 @@ const callSendAPI = (sender_psid,response,cb=null)=>{
     );
 };
 
-const tfjs_AI = async (fbUserMsg,senderID) =>{
-    let senderName = ''
+const tfjs_AI = async (fbUserMsg,senderID) => {
     let result = await predict.predictions(fbUserMsg)
-    await getSenderInformation(senderID,(senderInfo)=>{
+    await getSenderInformation(senderID, (senderInfo) => {
         senderName = senderInfo.first_name
     })
-    await handleMsg = (senderID) => {
-        if(result=='greetings_0'){
-            let response = {
-                text: `Chào bạn ${senderName}, tôi có thể giúp gì cho bạn`
-            }
-            callSendAPI(senderID, response)
-            return
-        }
-        if(result == 'greetings_1'){
-            let response = {
-                text: 'tạm biệt'
-            }
-            callSendAPI(senderID, response)
-            return
-        }
-        if(result=='weather'){
-            let response = {
-                text: now+"\n"+forecast_j
-            }
-            callSendAPI(senderID, response)
-            return
-        }
-        if (result == "regards") {
-            let response = {
-                text: 'Tôi rất vui vì có thể giúp bạn.'
-            }
-            callSendAPI(senderID, response)
-            return
-        }
-        if (result == "recommendations") {
-            let response = {
-                text: `Trời hôm nay đẹp lắm ${senderName}`
-            }
-            callSendAPI(senderID, response)
-            return
-        }
-        if(result == "swearing") {
-            let response = {
-                text: `${senderName}, vui lòng không nói tục `
-            }
-            callSendAPI(senderID, response)
-            return
-        }
-    }
+    await handleMsg(result, senderID)
 }
 let getSenderInformation = (senderID,cb) =>{
     return request(
@@ -340,4 +297,48 @@ let getSenderInformation = (senderID,cb) =>{
         }
       }
     )
+}
+let handleMsg =(result,senderID) => {
+    if(result=='greetings_0'){
+        let response = {
+            text: `Chào bạn ${senderName}, tôi có thể giúp gì cho bạn`
+        }
+        callSendAPI(senderID, response)
+        return
+    }
+    if(result == 'greetings_1'){
+        let response = {
+            text: 'tạm biệt'
+        }
+        callSendAPI(senderID, response)
+        return
+    }
+    if(result=='weather'){
+        let response = {
+            text: now+"\n"+forecast_j
+        }
+        callSendAPI(senderID, response)
+        return
+    }
+    if (result == "regards") {
+        let response = {
+            text: 'Tôi rất vui vì có thể giúp bạn.'
+        }
+        callSendAPI(senderID, response)
+        return
+    }
+    if (result == "recommendations") {
+        let response = {
+            text: `Trời hôm nay đẹp lắm ${senderName}`
+        }
+        callSendAPI(senderID, response)
+        return
+    }
+    if(result == "swearing") {
+        let response = {
+            text: `${senderName}, vui lòng không nói tục `
+        }
+        callSendAPI(senderID, response)
+        return
+    }
 }
