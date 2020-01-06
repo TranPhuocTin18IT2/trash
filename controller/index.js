@@ -1,3 +1,4 @@
+
 const helper = require('../helpers/handleMsg');
 const cfg = require('../helpers/config');
 module.exports.index = (req,res)=>{
@@ -38,6 +39,7 @@ module.exports.postMessage = (req,res)=>{
       webhook_event = entry.messaging[0];
       let senderId = webhook_event.sender.id ; 
       if(webhook_event.message){
+        console.log(senderId)
         helper.handleMessage(senderId,webhook_event.message);
       }
       else if(webhook_event.postback) {

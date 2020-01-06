@@ -1,3 +1,4 @@
+
 const fs = require('fs')
 const path = require('path')
 // thử viện tách từ
@@ -7,12 +8,6 @@ const tokenizer = vntk.wordTokenizer()
 // đọc file lưu stopword
 let ReadStopWordFile = fs.readFileSync(path.join(__dirname, './stopwords.txt'), 'utf8')
 let arayStopWords = ReadStopWordFile.split()
-// doc file du lieu train
-let data = fs.readFileSync('./dataInput.json','utf8')
-// let mailbox = require('../models/mailbox')
-// console.log(JSON.stringify(data))
-// parser data json
-let words = JSON.parse(data)
 // băt đầu tạo mảng từ điển
 let dictionary = new Array()
 // mảng chứa mảng các từ trong mỗi câu
@@ -26,6 +21,17 @@ let types = new Array()
 let typeVals = new Array()
 let typesInput =new Array()
 let totalInputs = 0
+// let data = fs.readFileSync('./dataInput.json','utf8')
+let Model = require('../models/mailbox')
+let data = []
+Model.find(function (err, docs) {
+    data.push(docs)
+    console.log(data)
+})
+// console.log(data)
+// parser data json
+let words = JSON.parse(JSON.stringify(data))
+
 // hàm làm sạch câu
 module.exports.clean_string = (str) => {
     // regex loai bo cac ky tu dac biet
