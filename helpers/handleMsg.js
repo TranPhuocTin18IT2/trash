@@ -1,13 +1,6 @@
 const cfg = require('./config')
 const timeout = 3000
 const request = require('request-promise')
-const mongoose = require('mongoose')
-const assert = require('assert')
-const model = require('../models/messages')
-const regexMess = require('./regexMessage')
-const uri =
-  "mongodb://dbSICT:sictK18@anonymous-shard-00-01-app1j.mongodb.net:27017/weather-chat-bot?ssl=true&replicaSet=anonymous-shard-0&authSource=admin";
-
 const handle_data = require("../handle_data");
 const predict = require('../prediction')
 
@@ -193,7 +186,7 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
     // callSendAPI(sender_psid, response)
 }
  // Handle postbacks
-module.exports.handlePostback = (sender_psid , received_postback)=>{
+module.exports.handlePostback = (sender_psid, received_postback)=>{
     let response
     let payload = received_postback.payload
     switch (payload) {
