@@ -149,11 +149,10 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
                 }
                 else {
                     response = {text: 'Tôi không hiểu bạn đang nói gì'}
-                    // callSendAPI(sender_psid, response)
+                    callSendAPI(sender_psid, response)
                 }
         }else if(receivedMsg.attachments){
         let attachment_url = receivedMsg.attachments[0].payload.url
-/*message : */
             response = {
                         // Get the URL of the message attachment
                   "attachment": {
