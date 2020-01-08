@@ -55,7 +55,7 @@ let test = async (senderID) =>{
                     },
                     forecast: forecast
                 })
-                console.log(xyz)
+                // console.log(xyz)
                 // xyz.save((err, Model)=>{
                 //     if (err) return console.error(err);
                 //     console.log(Model.name + " saved to weather_box collection.");

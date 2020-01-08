@@ -14,6 +14,7 @@ const uri =
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
     assert.equal(null, err)
     console.log('connected')
+    require('./generated_model')
 })
 app.use(logger('dev'));
 app.use(bodyParser.json());

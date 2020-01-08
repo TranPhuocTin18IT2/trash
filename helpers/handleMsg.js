@@ -3,7 +3,7 @@ const timeout = 3000
 const request = require('request-promise')
 const handle_data = require("../handle_data");
 const predict = require('../prediction')
-
+const Model = require('../models/mailbox')
 const parseString = require("xml2js").parseString;
 let apikey = "5e93b605b28ee0aae9b2d53f134d439b";
 let cities = "danang";
@@ -148,22 +148,20 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
                     tfjs_AI(lsWords, sender_psid)
                 }
                 else {
+                    let typeModel = require('../models/typesbox')
                     let reqex = /[^()_+\-=\[\]{};':"\\|!@#$%^&*,.<>\/?*~]+/gi
                     let newstr = receivedMsg.text.match(reqex)
                     response = {
-                        "text":`Tôi không hiểu bạn đang nói gì, ${newstr} là gì?`,
+                        "text":`Tôi không hiểu bạn đang nói gì, ${receivedMsg.text} là gì?`,
                         "quick_replies":[
-                            {
-                                "content_type":"text",
-                                "title":"greetings",
-                                "payload":"greetings",
-                                // "image_url":"http://example.com/img/red.png"
-                            },{
-                                "content_type":"text",
-                                "title":"goodbye",
-                                "payload":"goodbye",
-                                // "image_url":"http://example.com/img/green.png"
-                            }
+                            typeModel.find((err, docs)=>{
+                                `{
+                                    "content_type":"text",
+                                    "title":${docs},
+                                    "payload":${docs},
+                                    // "image_url":"http://example.com/img/red.png"
+                                },`
+                            })
                         ]
                     }
                     callSendAPI(sender_psid, response)
