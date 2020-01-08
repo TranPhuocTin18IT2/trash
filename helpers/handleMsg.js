@@ -179,10 +179,10 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
                     }
                   }
                 }
-                // callSendAPI(sender_psid, response)
+                callSendAPI(sender_psid, response)
             }
     // Send the response message
-    callSendAPI(sender_psid, response)
+    // callSendAPI(sender_psid, response)
 }
  // Handle postbacks
 module.exports.handlePostback = (sender_psid, received_postback)=>{
