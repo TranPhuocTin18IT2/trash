@@ -148,8 +148,10 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
                     tfjs_AI(lsWords, sender_psid)
                 }
                 else {
+                    let reqex = /[^()_+\-=\[\]{};':"\\|!@#$%^&*,.<>\/?*~]+/gi
+                    let newstr = receivedMsg.text.match(reqex)
                     response = {
-                        "text": "Pick a color:",
+                        "text":`Tôi không hiểu bạn đang nói gì, ${newstr} là gì?`,
                         "quick_replies":[
                             {
                                 "content_type":"text",
@@ -304,14 +306,14 @@ let getSenderInformation = (senderID,cb) =>{
 }
 
 let handleMsg =(result,senderID) => {
-    if(result=='greetings_0'){
+    if(result=='greetings'){
         let response = {
             text: `Chào bạn ${senderName}, tôi có thể giúp gì cho bạn`
         }
         callSendAPI(senderID, response)
         return
     }
-    if(result == 'greetings_1'){
+    if(result == 'goodbye'){
         let response = {
             text: 'tạm biệt'
         }
