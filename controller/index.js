@@ -36,13 +36,12 @@ module.exports.postMessage = (req,res)=>{
         // Gets the message. entry.messaging is an array, but 
         // will only ever contain one message, so we get index 0
       webhook_event = entry.messaging[0];
-      let senderId = webhook_event.sender.id ; 
+      let senderId = webhook_event.sender.id ;
+      console.log(senderId,JSON.stringify(webhook_event))
       if(webhook_event.message){
-        console.log(senderId,JSON.stringify(webhook_event))
         helper.handleMessage(senderId,webhook_event.message);
       }
       else if(webhook_event.postback) {
-        console.log(senderId,JSON.stringify(webhook_event))
         helper.handlePostback(senderId,webhook_event.postback);
       }
     });
