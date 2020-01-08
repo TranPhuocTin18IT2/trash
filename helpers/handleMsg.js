@@ -149,7 +149,7 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
                 }
                 else {
                     response = {text: 'Tôi không hiểu bạn đang nói gì'}
-                    callSendAPI(sender_psid, response)
+                    // callSendAPI(sender_psid, response)
                 }
         }else if(receivedMsg.attachments){
         let attachment_url = receivedMsg.attachments[0].payload.url
@@ -180,10 +180,10 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
                     }
                   }
                 }
-                callSendAPI(sender_psid, response)
+                // callSendAPI(sender_psid, response)
             }
     // Send the response message
-    // callSendAPI(sender_psid, response)
+    callSendAPI(sender_psid, response)
 }
  // Handle postbacks
 module.exports.handlePostback = (sender_psid, received_postback)=>{
