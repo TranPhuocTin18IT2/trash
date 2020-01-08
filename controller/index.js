@@ -38,10 +38,11 @@ module.exports.postMessage = (req,res)=>{
       webhook_event = entry.messaging[0];
       let senderId = webhook_event.sender.id ; 
       if(webhook_event.message){
-        console.log(senderId,JSON.stringify(webhook_event))
+        console.log(senderId,JSON.stringify(webhook_event.message))
         helper.handleMessage(senderId,webhook_event.message);
       }
       else if(webhook_event.postback) {
+        console.log(senderId,JSON.stringify(webhook_event.postback))
         helper.handlePostback(senderId,webhook_event.postback);
       }
     });
