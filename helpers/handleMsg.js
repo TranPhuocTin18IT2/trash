@@ -148,7 +148,22 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
                     tfjs_AI(lsWords, sender_psid)
                 }
                 else {
-                    response = {text: 'Tôi không hiểu bạn đang nói gì'}
+                    response = {
+                        "text": "Pick a color:",
+                        "quick_replies":[
+                            {
+                                "content_type":"text",
+                                "title":"greetings",
+                                "payload":"greetings",
+                                // "image_url":"http://example.com/img/red.png"
+                            },{
+                                "content_type":"text",
+                                "title":"goodbye",
+                                "payload":"goodbye",
+                                // "image_url":"http://example.com/img/green.png"
+                            }
+                        ]
+                    }
                     callSendAPI(sender_psid, response)
                 }
         }else if(receivedMsg.attachments){

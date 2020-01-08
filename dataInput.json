@@ -57,35 +57,35 @@
   },
   {
     "text": "chào bạn",
-    "type": "greetings_0"
+    "type": "greeting"
   },
   {
     "text": "xin chào",
-    "type": "greetings_0"
+    "type": "greeting"
   },
   {
     "text": "ê",
-    "type": "greetings_0"
+    "type": "greeting"
   },
   {
     "text": "hi",
-    "type": "greetings_0"
+    "type": "greeting"
   },
   {
     "text": "hello",
-    "type": "greetings_0"
+    "type": "greeting"
   },
   {
     "text": "hey",
-    "type": "greetings_0"
+    "type": "greeting"
   },
   {
     "text": "bye bye",
-    "type": "greetings_1"
+    "type": "goodbye"
   },
   {
     "text": "tạm biệt",
-    "type": "greetings_1"
+    "type": "goodbye"
   },
   {
     "text": "cảm ơn",
