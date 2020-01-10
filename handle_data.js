@@ -8,10 +8,10 @@ const tokenizer = vntk.wordTokenizer()
 let ReadStopWordFile = fs.readFileSync(path.join(__dirname, './stopwords.txt'), 'utf8')
 let arayStopWords = ReadStopWordFile.split()
 // doc file du lieu train
-// let data = fs.readFileSync('./dataInput.json','utf8')
+let data = fs.readFileSync('./dataInput.json','utf8')
 // console.log(data)
 // parser data json
-// let words = JSON.parse(data)
+let words = JSON.parse(data)
 // băt đầu tạo mảng từ điển
 let dictionary = new Array()
 // mảng chứa mảng các từ trong mỗi câu
@@ -53,7 +53,7 @@ let arrayUnique = (array) => {
     return arr
 }
 // đếm số từ trong câu
-module.exports.create_Dictionary = (words) =>{
+module.exports.create_Dictionary = () =>{
     for (let i in words) {
         // clean
         let cleanString = this.clean_string(words[i].text)
@@ -121,25 +121,11 @@ module.exports.create_vectors = (wm) => {
     }
     return vectors
 }
-module.exports.typeList = (words, typeModel) =>{
+module.exports.typeList = () =>{
     for (let type of words) {
         typeVals.push(type.type)
     }
     types = [...new Set(typeVals)]
-    types.forEach(item => {
-        typeModel.find((err, docs)=>{
-            // console.log(docs.indexOf(item))
-            if(docs.indexOf(item)!== -1){
-                let typeLs = new typeModel({
-                    name: item.toString()
-                })
-                typeLs.save((err, Model)=>{
-                    if (err) return console.error(err);
-                    console.log(Model.name + " saved to weather_box collection.");
-                });
-            }
-        })
-    })
     return types
 }
 module.exports.fill_types = (types) => {

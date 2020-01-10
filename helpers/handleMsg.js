@@ -8,7 +8,8 @@ const parseString = require("xml2js").parseString;
 let apikey = "5e93b605b28ee0aae9b2d53f134d439b";
 let cities = "danang";
 let countries = "vn";
-let url = `https://api.openweathermap.org/data/2.5/forecast?q=${cities},${countries}&mode=xml&appid=${apikey}`;
+let url = `https://api.openweathermap.org/data/2.5/forecast?q=${cities},${countries}&mode=xml&appid=${apikey}`
+let typeModel = require('../models/typesbox')
 //
 let dictionary = handle_data.create_Dictionary()
 let senderName = ''
@@ -148,20 +149,41 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
                     tfjs_AI(lsWords, sender_psid)
                 }
                 else {
-                    let typeModel = require('../models/typesbox')
                     let reqex = /[^()_+\-=\[\]{};':"\\|!@#$%^&*,.<>\/?*~]+/gi
                     let newstr = receivedMsg.text.match(reqex)
                     response = {
                         "text":`Tôi không hiểu bạn đang nói gì, ${receivedMsg.text} là gì?`,
                         "quick_replies":[
-                            typeModel.find((err, docs)=>{
-                                `{
+                                {
                                     "content_type":"text",
-                                    "title":${docs},
-                                    "payload":${docs},
+                                    "title":'greetings',
+                                    "payload": 'greetings',
                                     // "image_url":"http://example.com/img/red.png"
-                                },`
-                            })
+                                },
+                                {
+                                    "content_type":"text",
+                                    "title":'weather',
+                                    "payload": 'weather',
+                                    // "image_url":"http://example.com/img/red.png"
+                                },
+                                {
+                                    "content_type":"text",
+                                    "title":'regards',
+                                    "payload": 'regards',
+                                    // "image_url":"http://example.com/img/red.png"
+                                },
+                                {
+                                    "content_type":"text",
+                                    "title":'joke',
+                                    "payload": 'joke',
+                                    // "image_url":"http://example.com/img/red.png"
+                                },
+                                {
+                                    "content_type":"text",
+                                    "title":'goodbye',
+                                    "payload": 'goodbye',
+                                    // "image_url":"http://example.com/img/red.png"
+                                },
                         ]
                     }
                     callSendAPI(sender_psid, response)
