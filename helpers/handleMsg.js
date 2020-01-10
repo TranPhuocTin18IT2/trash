@@ -399,3 +399,6 @@ let handleMsg =(result,senderID) => {
         return
     }
 }
+const insertData = (msg, type) =>{
+    Model.save()
+}
