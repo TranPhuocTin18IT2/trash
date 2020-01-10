@@ -356,42 +356,42 @@ let getSenderInformation = (senderID,cb) =>{
 }
 
 let handleMsg =(result,senderID) => {
-    if(result=='greetings'){
+    if(result ==='greetings'){
         let response = {
             text: `Chào bạn ${senderName}, tôi có thể giúp gì cho bạn`
         }
         callSendAPI(senderID, response)
         return
     }
-    if(result == 'goodbye'){
+    if(result === 'goodbye'){
         let response = {
             text: 'tạm biệt'
         }
         callSendAPI(senderID, response)
         return
     }
-    if(result=='weather'){
+    if(result === 'weather'){
         let response = {
             text: now+"\n"+forecast_j
         }
         callSendAPI(senderID, response)
         return
     }
-    if (result == "regards") {
+    if (result === "regards") {
         let response = {
             text: 'Tôi rất vui vì có thể giúp bạn.'
         }
         callSendAPI(senderID, response)
         return
     }
-    if (result == "recommendations") {
+    if (result === "recommendations") {
         let response = {
             text: `${senderName} ơi thời tiết hôm nay khá đẹp để tận hưởng`
         }
         callSendAPI(senderID, response)
         return
     }
-    if(result == "swearing") {
+    if(result === "swearing") {
         let response = {
             text: `${senderName}, vui lòng không nói tục `
         }
