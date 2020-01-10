@@ -184,6 +184,12 @@ module.exports.handleMessage = (sender_psid, receivedMsg)=>{
                                     "payload": 'goodbye',
                                     // "image_url":"http://example.com/img/red.png"
                                 },
+                                {
+                                    "content_type":"text",
+                                    "title":'recommendations',
+                                    "payload": 'recommendations',
+                                    // "image_url":"http://example.com/img/red.png"
+                                },
                         ]
                     }
                     callSendAPI(sender_psid, response)
@@ -230,6 +236,24 @@ module.exports.handlePostback = (sender_psid, received_postback)=>{
             response = { "text": "Bắt đầu"}
             callSendAPI(sender_psid, response)
             break
+        }
+        case 'greetings': {
+            handleMsg('greetings',sender_psid)
+        }
+        case 'goodbye': {
+            handleMsg('goodbye',sender_psid)
+        }
+        case 'weather': {
+            handleMsg('weather',sender_psid)
+        }
+        case 'regards': {
+            handleMsg('regards',sender_psid)
+        }
+        case 'joke': {
+            handleMsg('joke',sender_psid)
+        }
+        case 'recommendations': {
+            handleMsg('recommendations',sender_psid)
         }
         case 'yes': {
             response = { "text": "Thanks" }

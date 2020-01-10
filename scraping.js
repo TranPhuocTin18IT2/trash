@@ -8,17 +8,27 @@ let cities = "haiphong";
 let countries = "vn";
 let url = `https://api.openweathermap.org/data/2.5/forecast?q=${cities},${countries}&mode=xml&appid=${key}`;
 let senderID = 2564303896996801
-
-// mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
-//     assert.equal(null, err)
-//         console.log('connected')
-// })
+let forecast_info = ''
+const hahahaha = async () => {
+    await test(senderID)
+}
+hahahaha()
 let test = async (senderID) =>{
     await coordinates(senderID, (details) =>{
         // console.log(JSON.stringify(details.latitude))
         request(url, (err, response, data) => {
             parseString(data, { trim: true }, (err, result) => {
                 let root = result.weatherdata
+                let location = {
+                    location: {
+                        city: root.location[0].name[0],
+                        country: root.location[0].country[0],
+                        coords: {
+                            latitude: root.location[0].location[0].$.latitude,
+                            longitude: root.location[0].location[0].$.longitude
+                        }
+                    }
+                }
                 let forecast = Array.from(root.forecast[0].time).map(p => ({
                         date: {
                             from: dateFormat(new Date(p.$.from),"yyyy-mm-dd h:MM:ss"),
@@ -44,7 +54,7 @@ let test = async (senderID) =>{
                             unit: p.clouds[0].$.unit
                         }
                 }))
-                let xyz = new Model({
+                let record = new Model({
                     location: {
                         city: root.location[0].name[0],
                         country: root.location[0].country[0],
@@ -55,7 +65,7 @@ let test = async (senderID) =>{
                     },
                     forecast: forecast
                 })
-                // console.log(xyz)
+                forecast_info = forecast
                 // xyz.save((err, Model)=>{
                 //     if (err) return console.error(err);
                 //     console.log(Model.name + " saved to weather_box collection.");
@@ -81,4 +91,12 @@ let coordinates = (senderID,details) =>{
             }
         )
 }
-test(senderID)
+// test(senderID)
+let exportData = () => {
+    Model.find({city: 'Danang'},(err, docs)=>{
+        if(docs.length<1){
+            console.log(forecast_info)
+        }
+        else console.log('add new')
+    })
+}
