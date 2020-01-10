@@ -239,29 +239,28 @@ module.exports.handlePostback = (sender_psid, received_postback)=>{
         }
         case 'greetings': {
             handleMsg('greetings',sender_psid)
-        }
             break
-
+        }
         case 'goodbye': {
             handleMsg('goodbye',sender_psid)
-        }
             break
+        }
         case 'weather': {
             handleMsg('weather',sender_psid)
-        }
             break
+        }
         case 'regards': {
             handleMsg('regards',sender_psid)
-        }
             break
+        }
         case 'joke': {
             handleMsg('joke',sender_psid)
-        }
             break
+        }
         case 'recommendations': {
             handleMsg('recommendations',sender_psid)
-        }
             break
+        }
         case 'yes': {
             response = { "text": "Thanks" }
             callSendAPI(sender_psid, response)
